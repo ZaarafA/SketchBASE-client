@@ -1,17 +1,13 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import "./App.css";
 
 const Header = () => {
     return (
-        <div style={styles.header}>
+        <div className="header">
+            <h1 className="title">SketchBASE</h1>
+            <p className="notifications">🔔</p>
         </div>
     );
-};
-
-const styles = {
-    header: {
-        background_color: "red",
-    }
 };
 
 export default Header;

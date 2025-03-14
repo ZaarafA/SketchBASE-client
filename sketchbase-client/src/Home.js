@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Header from "./Header";
 
 const Home = () => {
   const [users, setUsers] = useState([]);
@@ -13,6 +14,7 @@ const Home = () => {
 
   return (
     <div>
+      <Header/>
       <h1>SketchBase Users</h1>
       <ul>
         {users.map((user) => (
