@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Header from "./Header";
+import Sidebar from "./Sidebar";
 
 const Home = () => {
   const [users, setUsers] = useState([]);
@@ -13,18 +14,23 @@ const Home = () => {
   }, []);
 
   return (
-    <div>
-      <Header/>
-      <h1>SketchBase Users</h1>
-      <ul>
-        {users.map((user) => (
-          <li key={user.id}>
-            <Link to={`/profile/${user.id}`}>
-              {user.firstName} {user.lastName}
-            </Link>
-          </li>
-        ))}
-      </ul>
+    <div className="container">
+      <Header />
+      <div className="main">
+        <Sidebar />
+        <div className="content">
+          <h1>SketchBase Users</h1>
+          <ul>
+            {users.map((user) => (
+              <li key={user.id}>
+                <Link to={`/profile/${user.id}`}>
+                  {user.firstName} {user.lastName}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
     </div>
   );
 };
