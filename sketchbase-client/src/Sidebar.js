@@ -42,7 +42,7 @@ const Sidebar = () => {
                 <div className="pfp-div">
                     <img alt="Profile" src="https://picsum.photos/300/300" />
                 </div>
-                <p>{user ? user.email : "USERNAME"}</p>
+                <p>{user ? user.displayName : "Guest User"}</p>
                 {user && (<button onClick={handleSignOut}>Sign Out</button>)}
             </div>
         </div>
