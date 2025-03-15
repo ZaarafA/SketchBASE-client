@@ -10,6 +10,9 @@ const Sidebar = () => {
                 <Link to="/messages">Messages</Link>
                 <Link to="/search">Search</Link>
                 <Link to="/profile/1">Profile</Link>
+                {/* TEMP LINKS: FOR TESTING ONLY */}
+                <Link to="/login">*Login</Link>
+                <Link to="/signup">*Sign Up</Link>
             </div>
             <div className="sidebar-section sidebar-middle">
                 <h3>Ongoing Orders</h3>
