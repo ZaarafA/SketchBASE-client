@@ -1,0 +1,98 @@
+.home-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+  
+  .home-main {
+    display: flex;
+    flex: 1;
+  }
+  
+  .home-content {
+    flex: 1;
+    padding: 20px;
+    background-color: #25050f; 
+    color: white;
+  }
+  
+  .banner {
+    position: relative;
+    text-align: center;
+  }
+  
+  .banner img {
+    width: 100%;
+    max-height: 200px; 
+    object-fit: cover;
+  }
+  
+  .banner-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+  }
+  
+  .search-bar {
+    display: flex;
+    margin: 20px 0;
+  }
+  
+  .search-bar input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  .search-bar button {
+    padding: 10px 20px;
+    background-color: purple;
+    color: rgb(72, 9, 82);
+    border: none;
+    border-radius: 5px;
+    margin-left: 10px;
+  }
+  
+  .explore {
+    margin-bottom: 20px;
+  }
+  
+  .image-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px;
+  }
+  
+  .image-card {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .image-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+  }
+  
+  .image-card p {
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .user-list{
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .user-link{
+    background-color: purple;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin: 5px;
+    text-decoration: none;
+  }

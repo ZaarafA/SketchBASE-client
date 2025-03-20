@@ -12,7 +12,7 @@ const Sidebar = () => {
                 <Link to="/profile/1">Profile</Link>
             </div>
             <div className="sidebar-section sidebar-middle">
-                <h3>Ongoing Orders</h3>
+                <h1>Ongoing Orders</h1>
             </div>
 
             <div className="sidebar-section sidebar-bottom">
