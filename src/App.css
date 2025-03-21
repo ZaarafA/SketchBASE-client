@@ -102,8 +102,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  background: linear-gradient(135deg, #6b6bff, #ff6b6b);
+  background: linear-gradient(135deg, #ff6b6b, #6b6bff);
 }
 
 .signup-box {
