@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
-import { auth } from "./firebase";
+import { auth, db } from "./firebase";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
 
 const Signup = () => {
     const navigate = useNavigate();
@@ -14,9 +15,16 @@ const Signup = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
+            // create user @ Firebase Auth
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             await updateProfile(userCredential.user, { displayName: username });
             console.log("User created:", userCredential.user);
+            // store User @ Firestore DB
+            await setDoc(doc(db, "Users", userCredential.user.uid), {
+                uid: userCredential.user.uid,
+                name: username,
+                email: email,
+            });
             navigate("/");
         } catch (error) {
             console.error("Error signing up:", error);
