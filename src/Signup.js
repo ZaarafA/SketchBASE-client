@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import Header from "./Header";
-import Sidebar from "./Sidebar";
+import { useNavigate } from "react-router-dom";
 import { auth } from "./firebase";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 
 const Signup = () => {
+    const navigate = useNavigate();
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -15,36 +15,28 @@ const Signup = () => {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             await updateProfile(userCredential.user, { displayName: username });
             console.log("User created:", userCredential.user);
+            navigate("/");
         } catch (error) {
             console.error("Error signing up:", error);
         }
     };
 
     return (
-    <div className="container">
-        <Header />
-        <div className="main">
-            <Sidebar />
-            <div className="content">
-                <h2>Signup</h2>
+        <div className="signup-container">
+            <div className="signup-box">
+                <h1>Create Your Account</h1>
+                <p>Join our community and start showcasing your art today.</p>
                 <form onSubmit={handleSubmit}>
-                    <div>
-                        <label>Username:</label>
-                        <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} required />
-                    </div>
-                    <div>
-                        <label>Email:</label>
-                        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-                    </div>
-                    <div>
-                        <label>Password:</label>
-                        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-                    </div>
-                    <button type="submit">Signup</button>
+                    <input type="text" placeholder="Enter your name" value={username} onChange={(e) => setUsername(e.target.value)} required />
+                    <input type="email" placeholder="Enter your email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+                    <input type="password" placeholder="Create a password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+                    <button type="submit" className="signup-button">Sign Up</button>
                 </form>
+                <button className="back-button" onClick={() => navigate("/")}>
+                    Back to Home
+                </button>
             </div>
         </div>
-    </div>
     );
 };
 
