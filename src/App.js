@@ -6,6 +6,7 @@ import Profile from "./Profile";
 import Search from './Search';
 import Login from './Login';
 import Signup from './Signup';
+import Messages from './Messages';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/search" element={<Search />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/messages" element={<Messages />} />
       </Routes>
     </Router>
   );
