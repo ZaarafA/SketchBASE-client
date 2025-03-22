@@ -96,3 +96,79 @@ body {
   object-fit: cover;
   border-radius: 50%;
 }
+
+/* Sign Up Page Styling */
+.signup-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #280a5f, #16161A);
+}
+
+.signup-box {
+  background-color: var(--pdark1);
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  color: white;
+  width: 350px;
+}
+
+.signup-box h1 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.signup-box p {
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+}
+
+.signup-box form {
+  display: flex;
+  flex-direction: column;
+}
+
+.signup-box input {
+  width: 93%;
+  padding: 12px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.signup-button {
+  background-color: #ffcc00;
+  color: black;
+  padding: 12px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.signup-button:hover {
+  background-color: #e6b800;
+}
+
+/* Back to Home Button */
+.back-button {
+  margin-top: 20px;
+  background-color: transparent;
+  border: 2px solid white;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.back-button:hover {
+  background-color: white;
+  color: black;
+}
