@@ -172,3 +172,93 @@ body {
   background-color: white;
   color: black;
 }
+
+/* MESSAGE PAGE STYLING */
+.messages-content {
+  display: flex;
+  padding: 0px;
+}
+
+.users-panel {
+  width: 25%;
+  background-color: var(--pdark2);
+  padding: 10px;
+  overflow-y: auto;
+}
+.user-box {
+  display: flex;
+  align-items: center;
+  background-color: var(--pdark1);
+  margin-bottom: 10px;
+  padding-left: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  overflow: hidden;
+}
+.user-box:hover {
+  background-color: var(--plight1);
+}
+.user-box.active {
+  background-color: var(--plight1);
+}
+.user-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+/* Messages: Right Side */
+.chat-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid #ccc;
+  padding: 10px;
+}
+.chat-header {
+  border-bottom: 1px solid #ccc;
+}
+
+.chat-messages {
+  flex: 1;
+  padding: 10px;
+  overflow-y: auto;
+}
+
+.chat-typebar {
+  padding: 10px;
+  border-top: 1px solid #ccc;
+  display: flex;
+}
+.chat-typebar input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.chat-typebar button {
+  margin-left: 10px;
+  padding: 10px 20px;
+  border: none;
+  background-color: var(--pdark1);
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.chat-typebar button:hover {
+  background-color: #0056b3;
+}
+
+.no-active-user {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  font-size: 1.2rem;
+  color: #666;
+}
