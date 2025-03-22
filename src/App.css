@@ -195,12 +195,11 @@ body {
   border-radius: 5px;
   transition: background-color 0.3s ease;
   overflow: hidden;
+  font-size: large;
 }
-.user-box:hover {
+.user-box:hover, .user-box.active {
   background-color: var(--plight1);
-}
-.user-box.active {
-  background-color: var(--plight1);
+  color: #000;
 }
 .user-image {
   width: 40px;
@@ -219,15 +218,36 @@ body {
 }
 .chat-header {
   border-bottom: 1px solid #ccc;
+  font-size: large;
+  font-weight: bolder;
 }
 
 .chat-messages {
-  flex: 1;
-  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   overflow-y: auto;
+  font-size: medium;
+  max-height: 74vh;
+}
+.message{
+  color: #000;
+  padding: 0px 15px;
+  border-radius: 15px;
+  max-width: 60%;
+  word-wrap: break-word;
+}
+.message.sent {
+  align-self: flex-end;
+  background-color: var(--plight1);
+}
+.message.received {
+  align-self: flex-start;
+  background-color: #fff;
 }
 
 .chat-typebar {
+  margin-top: 10px;
   padding: 10px;
   border-top: 1px solid #ccc;
   display: flex;
@@ -238,7 +258,6 @@ body {
   border: 1px solid #ccc;
   border-radius: 5px;
 }
-
 .chat-typebar button {
   margin-left: 10px;
   padding: 10px 20px;
@@ -247,18 +266,10 @@ body {
   color: white;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.chat-typebar button:hover {
-  background-color: #0056b3;
 }
 
 .no-active-user {
   display: flex;
   justify-content: center;
-  align-items: center;
-  height: 100%;
-  font-size: 1.2rem;
   color: #666;
 }
