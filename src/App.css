@@ -46,7 +46,7 @@ body {
 /* SIDEBAR COMPONENT */
 .sidebar {
   background-color: var(--purpmain);
-  width: 200px;
+  width: 250px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
