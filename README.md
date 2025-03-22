@@ -21,6 +21,7 @@ Minor TODOs:
 - Signup Validation: Check that the password fits some length/character requirement, the email isn't already in use. Show error messages to user if password is too short.
 
 Syling Needed:
+- Signout button
 - Move Login/Signup links to sidebar's bottom section when not logged in
 - Make header smaller
 - Replace the bell emoji in the header with a pop-up notification area
