@@ -20,6 +20,7 @@ Major TODOs:
 Minor TODOs:
 - Signup Validation: Check that the password fits some length/character requirement, the email isn't already in use. Show error messages to user if password is too short.
 - Make Message fetch be based on an array of existing conversations. 
+- Inefficiency: Message Fetching and Filtering happens on a Global level
 
 Syling Needed:
 - Signout button
