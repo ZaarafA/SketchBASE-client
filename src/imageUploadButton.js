@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
-import { db } from "./firebase";
+import { auth, db } from "./firebase";
 
 const ImageUploadButton = () => {
     const [imageFile, setImageFile] = useState(null);
     const [uploading, setUploading] = useState(false);
+    const [imageUrl, setImageUrl] = useState("");
 
     const handleFileChange = (e) => {
         if (e.target.files && e.target.files[0]) {
@@ -27,7 +28,16 @@ const ImageUploadButton = () => {
                 { method: "POST", body: data }
             );
             const json = await res.json();
-            console.log("Cloudinary URL:", json.secure_url);
+
+            if (json.secure_url) {
+                setImageUrl(json.secure_url);
+
+                await addDoc(collection(db, "Images"), {
+                    imageUrl: json.secure_url,
+                    createdAt: serverTimestamp(),
+                    uploadedBy: auth.currentUser.uid,
+                });
+            }
         } catch (err) {
             console.error("Upload failed:", err);
         } finally {
@@ -41,6 +51,13 @@ const ImageUploadButton = () => {
             <button onClick={handleUpload} disabled={!imageFile || uploading} >
                 {uploading ? "Uploading…" : "Upload Image"}
             </button>
+
+            {imageUrl && (
+                <div style={{ marginTop: 16 }}>
+                    <p>Uploaded successfully!</p>
+                    <img src={imageUrl} alt="Preview" style={{ maxWidth: "100%", height: "auto" }} />
+                </div>
+            )}
         </div>
     );
 };
