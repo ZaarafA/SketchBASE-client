@@ -6,6 +6,7 @@ const ImageUploadButton = () => {
     const [imageFile, setImageFile] = useState(null);
     const [uploading, setUploading] = useState(false);
     const [imageUrl, setImageUrl] = useState("");
+    const [tagsString, setTagsString] = useState("");
 
     const handleFileChange = (e) => {
         if (e.target.files && e.target.files[0]) {
@@ -31,11 +32,13 @@ const ImageUploadButton = () => {
 
             if (json.secure_url) {
                 setImageUrl(json.secure_url);
+                const tags = tagsString.split(",").map((t) => t.trim()).filter((t) => t.length > 0);
 
                 await addDoc(collection(db, "Images"), {
                     imageUrl: json.secure_url,
                     createdAt: serverTimestamp(),
                     uploadedBy: auth.currentUser.uid,
+                    tags: tags,
                 });
             }
         } catch (err) {
@@ -48,16 +51,22 @@ const ImageUploadButton = () => {
     return (
         <div>
             <input type="file" accept="image/*" onChange={handleFileChange}/>
+            <input type="text" placeholder="Add tags, comma separated" value={tagsString} 
+                onChange={(e) => setTagsString(e.target.value)} style={{ marginTop: 8, width: "100%" }} />
             <button onClick={handleUpload} disabled={!imageFile || uploading} >
                 {uploading ? "Uploading…" : "Upload Image"}
             </button>
 
-            {imageUrl && (
+            {/* TESTING PREVIEW */}
+            {/* {imageUrl && (
                 <div style={{ marginTop: 16 }}>
                     <p>Uploaded successfully!</p>
                     <img src={imageUrl} alt="Preview" style={{ maxWidth: "100%", height: "auto" }} />
+                    {tagsString && (
+                        <p> Tags:{" "} {tagsString.split(",").map((t) => t.trim()).filter(Boolean).join(", ")} </p>
+                    )}
                 </div>
-            )}
+            )} */}
         </div>
     );
 };
