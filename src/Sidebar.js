@@ -34,7 +34,8 @@ const Sidebar = () => {
                 {/* TEMP LINKS: FOR TESTING ONLY */}
                 <Link to="/login">*Login</Link>
                 <Link to="/signup">*Sign Up</Link>
-            </div>
+                <Link to="/test">*Faraaz Testing</Link>
+                </div>
             <div className="sidebar-section sidebar-middle">
                 <h3>Ongoing Orders</h3>
             </div>
