@@ -30,7 +30,7 @@ const Sidebar = () => {
                 <Link to="/">Home</Link>
                 <Link to="/messages">Messages</Link>
                 <Link to="/search">Search</Link>
-                <Link to="/profile/V97ORqC5bmh70VXMlvtjT14dILy1">Profile</Link>
+                <Link to={user ? `/profile/${user.uid}` : "/login"}>Profile</Link>
                 {/* TEMP LINKS: FOR TESTING ONLY */}
                 <Link to="/login">*Login</Link>
                 <Link to="/signup">*Sign Up</Link>
