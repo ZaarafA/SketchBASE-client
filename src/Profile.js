@@ -40,19 +40,19 @@ const Profile = () => {
 
                     {user && (
                         <div className="profile-container">
-                            {/* Left column: header, tabs, services, portfolio */}
+                            {/* left column */}
                             <div className="profile-left">
+                                {/* Profile Header */}
                                 <div className="profile-header">
-                                    {/* avatar + name + handle + rating + message button */}
                                     <div className="avatar"></div>
                                     <div className="info">
-                                        <h1>{user.name || user.displayName}</h1>
-                                        <p>@{user.username || userId}</p>
+                                        <p> <b>{user.name || user.displayName}</b>{" "} @{user.username || userId} </p>
                                         <p>4.3 ★ (1129)</p>
                                     </div>
                                     <button className="message-button">Message</button>
                                 </div>
 
+                                {/* Tabs */}
                                 <div className="tabs">
                                     <button className="active">Profile</button>
                                     <button>Services</button>
@@ -60,19 +60,43 @@ const Profile = () => {
                                     <button>Portfolio</button>
                                 </div>
 
+                                {/* Services */}
                                 <div className="services-section">
-                                    Services Section
+                                    Services:
+                                    <div className="cards-container">
+                                        <div className="card placeholder"></div>
+                                        <div className="card placeholder"></div>
+                                        <div className="card placeholder"></div>
+                                        <div className="card placeholder"></div>
+                                        <div className="card placeholder"></div>
+                                        </div>
+                                    <button className="show-more">Show more</button>
                                 </div>
 
+                                {/* Portfolio */}
                                 <div className="portfolio-section">
-                                    Portfolio Section
+                                    Portfolio:
+                                    <div className="cards-container">
+                                        <div className="card placeholder"></div>
+                                        <div className="card placeholder"></div>
+                                        <div className="card placeholder"></div>
+                                        <div className="card placeholder"></div>
+                                        <div className="card placeholder"></div>
+                                        </div>
+                                    <button className="show-more">Show more</button>
                                 </div>
                             </div>
 
                             {/* Right column: reviews */}
                             <div className="profile-right">
                                 <div className="reviews-section">
-                                    Reviews Section
+                                    Reviews
+                                    <div className="reviews-list">
+                                        <div className="review placeholder">Review 1</div>
+                                        <div className="review placeholder">Review 2</div>
+                                        <div className="review placeholder">Review 3</div>
+                                    </div>
+                                    <button className="show-more">Show more</button>
                                 </div>
                             </div>
                         </div>
