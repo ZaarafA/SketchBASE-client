@@ -1,0 +1,73 @@
+/* GLOBAL COLOR VARS */
+:root{
+    --bg: #16161A;
+    --purpmain: #7F5AF0;
+    --pdark1: #6b4bcc;
+    --pdark2: #352A5A;
+    --plight1: #C9B8FF;
+}
+/* GLOBAL STYLING */
+body {
+    background-color: var(--bg);
+    margin: 0;
+    padding: 0;
+    font-size: calc(10px + 2vmin);
+    color: white;
+}
+
+/* Sections */
+.profile-container {
+    display: flex;
+    gap: 16px;
+}
+.profile-left {
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+.profile-right {
+    flex: 1;
+}
+
+.profile-header {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    background: red;
+    line-height: 20px;
+}
+.tabs {
+    display: flex;
+    gap: 8px;
+    background: orange;
+    padding: 8px;
+}
+.services-section {
+    background: yellow;
+    min-height: 120px;
+}
+.portfolio-section {
+    background: green;
+    min-height: 120px;
+}
+.reviews-section {
+    background: blue;
+    min-height: 300px;
+}
+
+.avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: white;
+}
+.message-button {
+    margin-left: auto;
+    padding: 8px 16px;
+}
+
+.error {
+    color: #f55;
+    padding: 8px;
+}
