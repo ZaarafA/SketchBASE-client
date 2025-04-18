@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 import { doc, getDoc } from "firebase/firestore";
@@ -49,7 +49,7 @@ const Profile = () => {
                                         <p> <b>{user.name || user.displayName}</b>{" "} @{user.username || userId} </p>
                                         <p>4.3 ★ (1129)</p>
                                     </div>
-                                    <button className="message-button">Message</button>
+                                    <Link to={`/messages`}> <button className="message-button">Message</button> </Link>
                                 </div>
 
                                 {/* Tabs */}

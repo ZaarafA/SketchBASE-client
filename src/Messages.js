@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
+import { Link } from "react-router-dom";
 import { collection, getDocs, addDoc, serverTimestamp, query, orderBy, onSnapshot } from "firebase/firestore";
 import { db, auth } from "./firebase";
 
@@ -89,7 +90,10 @@ const Messages = () => {
                         {activeUser ? (
                             <>
                                 <div className="chat-header">
-                                    <p>{activeUser.name}</p>
+                                    <Link to={`/profile/${activeUser.id}`} className="chat-header-link" >
+                                        <img src="https://picsum.photos/200" alt="User Profile" className="user-image chat-header-image" />
+                                        {activeUser.name}
+                                    </Link>
                                 </div>
                                 <div className="chat-messages">
                                     {messages.length > 0 ? (

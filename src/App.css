@@ -227,7 +227,7 @@ body {
   font-size: large;
   font-weight: bolder;
 }
-
+/* Messages Sent / Recieved */
 .chat-messages {
   display: flex;
   flex-direction: column;
@@ -251,7 +251,7 @@ body {
   align-self: flex-start;
   background-color: #fff;
 }
-
+/* Chat Typebar and Header */
 .chat-typebar {
   margin-top: 10px;
   padding: 10px;
@@ -273,7 +273,21 @@ body {
   border-radius: 5px;
   cursor: pointer;
 }
-
+.chat-header-link {
+  color: inherit;
+  text-decoration: none;
+  font-weight: bold;
+  display: inline-block; 
+  margin: 12px 0px;
+  font-size: 1.5em;
+}
+.chat-header-link:hover{
+  color: var(--plight1);
+}
+.chat-header-image{
+  width: 25px;
+  height: 25px;
+}
 .no-active-user {
   display: flex;
   justify-content: center;
