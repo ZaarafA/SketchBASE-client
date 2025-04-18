@@ -32,12 +32,29 @@ const EditProfileButton = () => {
 
     const handleSave = async () => {
         setSaving(true);
+        let photoURL = userData.photoURL || "";
+        // upload new pfp to Cloudinary
+        if (avatarFile) {
+            const form = new FormData();
+            form.append("file", avatarFile);
+            form.append("upload_preset", "unsigned_preset");
+            form.append("cloud_name", "dt1uihx5y");
+
+            const res = await 
+                fetch("https://api.cloudinary.com/v1_1/dt1uihx5y/image/upload", 
+                { method: "POST", body: form });
+            const json = await res.json();
+            photoURL = json.secure_url;
+        }
+        // update db photoURL to the new pfp file
         const userRef = doc(db, "Users", currentUser.uid);
         await updateDoc(userRef, {
-            name: displayName,
-            updatedAt: serverTimestamp()
+            name: displayName, 
+            photoURL: photoURL, 
+            updatedAt: serverTimestamp() 
         });
-        setUserData(prev => ({ ...prev, name: displayName }));
+
+        setUserData(prev => ({ ...prev, name: displayName, photoURL }));
         setSaving(false);
         setIsOpen(false);
     };
