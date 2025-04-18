@@ -1,4 +1,6 @@
-.open-modal-btn {
+/* ImageUpload and EditProfile Modals */
+
+.open-modal-btn, .edit-profile-btn {
   padding: 8px 16px;
   background: var(--plight1);
   color: var(--bg);
