@@ -44,7 +44,9 @@ const Profile = () => {
                             <div className="profile-left">
                                 {/* Profile Header */}
                                 <div className="profile-header">
-                                    <div className="avatar"></div>
+                                    <div className="avatar">
+                                        {user.photoURL ? <img src={user.photoURL} alt="Profile"/> : null}
+                                    </div>
                                     <div className="info">
                                         <p> <b>{user.name || user.displayName}</b>{" "} @{user.username || userId} </p>
                                         <p>4.3 ★ (1129)</p>

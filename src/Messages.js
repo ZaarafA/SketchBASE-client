@@ -80,7 +80,7 @@ const Messages = () => {
                                 className={`user-box ${activeUser && activeUser.id === user.id ? 'active' : ''}`}
                                 onClick={() => {if(auth.currentUser){setActiveUser(user)}}}
                             >
-                                <img src="https://picsum.photos/200" alt="User Profile" className="user-image" />
+                                {user.photoURL ? <img src={user.photoURL} alt="User Profile" className="user-image"/> : <img src="https://picsum.photos/200" alt="User Profile" className="user-image" />}
                                 <p>{user.name}</p>
                             </div>
                         ))}
@@ -91,7 +91,7 @@ const Messages = () => {
                             <>
                                 <div className="chat-header">
                                     <Link to={`/profile/${activeUser.id}`} className="chat-header-link" >
-                                        <img src="https://picsum.photos/200" alt="User Profile" className="user-image chat-header-image" />
+                                    {activeUser.photoURL ? <img src={activeUser.photoURL} alt="User Profile" className="user-image"/> : <img src="https://picsum.photos/200" alt="User Profile" className="user-image" />}
                                         {activeUser.name}
                                     </Link>
                                 </div>
