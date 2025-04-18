@@ -77,12 +77,14 @@ const Profile = () => {
                                 <div className="portfolio-section">
                                     Portfolio:
                                     <div className="cards-container">
-                                        <div className="card placeholder"></div>
-                                        <div className="card placeholder"></div>
-                                        <div className="card placeholder"></div>
-                                        <div className="card placeholder"></div>
-                                        <div className="card placeholder"></div>
-                                        </div>
+                                        {Array.isArray(user.userImages) &&
+                                        user.userImages.length > 0 ? (
+                                            user.userImages.slice(-5).map((url, idx) => (
+                                                    <div key={idx} className="card"> <img src={url} alt={`Portfolio Piece`} /></div>
+                                                ))) : (
+                                            Array.from({ length: 5 }).map( (_, i) => ( <div key={i} className="card placeholder" />))
+                                        )}
+                                    </div>
                                     <button className="show-more">Show more</button>
                                 </div>
                             </div>

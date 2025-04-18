@@ -74,14 +74,34 @@ body {
 
 /* Cards */
 .cards-container {
-    display: flex;
-    gap: 16px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
     margin: 12px 0;
 }
+
 .card {
-    flex: 1;
-    height: 200px;
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background: var(--pdark2);
+    border-radius: 4px;
 }
+.card.placeholder {
+    background: grey;
+}
+.card img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+}
+
 .services-section {
     padding: 0px 16px;
 }
@@ -108,3 +128,5 @@ body {
 .review {
     padding: 8px;
 }
+
+
