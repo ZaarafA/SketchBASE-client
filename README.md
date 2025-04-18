@@ -13,6 +13,8 @@ Major TODOs:
 - Profile Editing
 - User Search
 - Image Tag Searching
+- Services Section
+- Portfolio Page
 
 Minor TODOs:
 - Signup Validation: Check that the password fits some length/character requirement, the email isn't already in use. Show error messages to user if password is too short.
@@ -20,6 +22,9 @@ Minor TODOs:
 - Inefficiency: Message Fetching and Filtering happens on a Global level
 - Make users sign up with a Username (permanent @) as well as a display name
 - Make Profile pages have the url of the username rather than the UID
+- Delete old avatar from Cloudinary when it's updated
+- Make sure the avatar images aren't stretched
+- Cloudinary Optimization: f_auto
 
 Syling Needed:
 - Signout button
