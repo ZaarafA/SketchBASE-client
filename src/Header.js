@@ -1,13 +1,28 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import ImageUploadButton from "./imageUploadButton";
 import "./App.css";
 
 const Header = () => {
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        const auth = getAuth();
+        const unsubscribe = onAuthStateChanged(auth, currentUser => {
+            setUser(currentUser);
+        });
+        return unsubscribe;
+    }, []);
+
     return (
         <div className="header">
             <h1 className="title">SketchBASE</h1>
-            <p className="notifications">🔔</p>
+            <div className="header-buttons">
+                <p className="notifications">🔔</p>
+                {user && <ImageUploadButton />}
+            </div>
         </div>
-    );
+    )
 };
 
 export default Header;

@@ -18,6 +18,7 @@ const Login = () => {
         } catch (error) {
             console.error("Error logging in:", error);
         }
+        navigate("/");
     };
 
     return (

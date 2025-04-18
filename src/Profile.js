@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 import { doc, getDoc } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 import { db } from "./firebase";
 import "./Profile.css";
 
@@ -10,6 +11,7 @@ const Profile = () => {
     const { userId } = useParams();
     const [user, setUser] = useState(null);
     const [error, setError] = useState(null);
+    const auth = getAuth();
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -44,12 +46,18 @@ const Profile = () => {
                             <div className="profile-left">
                                 {/* Profile Header */}
                                 <div className="profile-header">
-                                    <div className="avatar"></div>
+                                    <div className="avatar">
+                                        {user.photoURL ? <img src={user.photoURL} alt="Profile"/> : null}
+                                    </div>
                                     <div className="info">
                                         <p> <b>{user.name || user.displayName}</b>{" "} @{user.username || userId} </p>
                                         <p>4.3 ★ (1129)</p>
                                     </div>
-                                    <button className="message-button">Message</button>
+
+                                    {(auth.currentUser?.uid == userId) ? (
+                                        <button className="message-button"> Edit Profile </button> ) : (
+                                        <Link to="/messages"> <button className="message-button"> Message </button> </Link>
+                                    )}
                                 </div>
 
                                 {/* Tabs */}
@@ -77,12 +85,14 @@ const Profile = () => {
                                 <div className="portfolio-section">
                                     Portfolio:
                                     <div className="cards-container">
-                                        <div className="card placeholder"></div>
-                                        <div className="card placeholder"></div>
-                                        <div className="card placeholder"></div>
-                                        <div className="card placeholder"></div>
-                                        <div className="card placeholder"></div>
-                                        </div>
+                                        {Array.isArray(user.userImages) &&
+                                        user.userImages.length > 0 ? (
+                                            user.userImages.slice(-5).map((url, idx) => (
+                                                    <div key={idx} className="card"> <img src={url} alt={`Portfolio Piece`} /></div>
+                                                ))) : (
+                                            Array.from({ length: 5 }).map( (_, i) => ( <div key={i} className="card placeholder" />))
+                                        )}
+                                    </div>
                                     <button className="show-more">Show more</button>
                                 </div>
                             </div>

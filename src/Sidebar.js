@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./App.css";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 
 const Sidebar = () => {
     const [user, setUser] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const auth = getAuth();
@@ -22,6 +23,7 @@ const Sidebar = () => {
         } catch (error) {
             console.error("Error signing out:", error);
         }
+        navigate('/');
     };
 
     return (
@@ -41,7 +43,7 @@ const Sidebar = () => {
             </div>
             <div className="sidebar-section sidebar-bottom">
                 <div className="pfp-div">
-                    <img alt="Profile" src="https://picsum.photos/300/300" />
+                <img alt="Profile" src={(user && user.photoURL) ? user.photoURL : "https://picsum.photos/300/300"} />
                 </div>
                 <p>{user ? user.displayName : "Guest User"}</p>
                 {user && (<button onClick={handleSignOut}>Sign Out</button>)}
