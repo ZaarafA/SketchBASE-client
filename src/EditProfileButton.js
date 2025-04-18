@@ -54,7 +54,7 @@ const EditProfileButton = () => {
             updatedAt: serverTimestamp() 
         });
 
-        await updateProfile(auth.currentUser, { photoURL });
+        await updateProfile(currentUser, { displayName, photoURL });
         await auth.currentUser.reload();
 
         setUserData(prev => ({ ...prev, name: displayName, photoURL }));
