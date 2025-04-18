@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./App.css";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 
 const Sidebar = () => {
     const [user, setUser] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const auth = getAuth();
@@ -22,6 +23,7 @@ const Sidebar = () => {
         } catch (error) {
             console.error("Error signing out:", error);
         }
+        navigate('/');
     };
 
     return (
