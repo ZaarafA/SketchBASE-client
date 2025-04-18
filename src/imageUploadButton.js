@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import {collection, addDoc, serverTimestamp, doc,updateDoc, arrayUnion } from "firebase/firestore";
 import { auth, db } from "./firebase";
 import "./ImageUploadButton.css";
 
@@ -38,6 +38,13 @@ const ImageUploadButton = () => {
                     uploadedBy: auth.currentUser.uid,
                     tags: tags,
                 });
+
+                // add image to userImages field
+                const userRef = doc(db, "Users", auth.currentUser.uid);
+                await updateDoc(userRef, {
+                    userImages: arrayUnion(json.secure_url)
+                });
+
                 // close modal & reset
                 setIsOpen(false);
                 setImageFile(null);
