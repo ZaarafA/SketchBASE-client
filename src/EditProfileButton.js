@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getAuth } from "firebase/auth";
+import { getAuth, updateProfile } from "firebase/auth";
 import { doc, getDoc, updateDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "./firebase";
 import "./ImageUploadButton.css";
@@ -53,6 +53,9 @@ const EditProfileButton = () => {
             photoURL: photoURL, 
             updatedAt: serverTimestamp() 
         });
+
+        await updateProfile(auth.currentUser, { photoURL });
+        await auth.currentUser.reload();
 
         setUserData(prev => ({ ...prev, name: displayName, photoURL }));
         setSaving(false);
