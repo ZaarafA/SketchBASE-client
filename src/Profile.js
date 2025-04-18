@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import Header from "./Header";
+import EditProfileButton from "./EditProfileButton";
 import Sidebar from "./Sidebar";
 import { doc, getDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
@@ -55,7 +56,7 @@ const Profile = () => {
                                     </div>
 
                                     {(auth.currentUser?.uid == userId) ? (
-                                        <button className="message-button"> Edit Profile </button> ) : (
+                                        <EditProfileButton></EditProfileButton> ) : (
                                         <Link to="/messages"> <button className="message-button"> Message </button> </Link>
                                     )}
                                 </div>
@@ -85,8 +86,7 @@ const Profile = () => {
                                 <div className="portfolio-section">
                                     Portfolio:
                                     <div className="cards-container">
-                                        {Array.isArray(user.userImages) &&
-                                        user.userImages.length > 0 ? (
+                                        {Array.isArray(user.userImages) && user.userImages.length > 0 ? (
                                             user.userImages.slice(-5).map((url, idx) => (
                                                     <div key={idx} className="card"> <img src={url} alt={`Portfolio Piece`} /></div>
                                                 ))) : (
