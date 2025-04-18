@@ -1,0 +1,61 @@
+.open-modal-btn {
+  padding: 8px 16px;
+  background: var(--plight1);
+  color: var(--bg);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+/* modal box */
+.modal-content {
+  background: var(--pdark2);
+  padding: 16px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* input boxes */
+.modal-content input[type="file"], .modal-content input[type="text"] {
+  padding: 8px;
+  border: 1px solid var(--plight1);
+  border-radius: 4px;
+  background: var(--bg);
+  color: white;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+.modal-actions button {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+#modal-upload {
+  background: var(--plight1);
+  color: var(--bg);
+}
+#modal-cancel {
+  background: transparent;
+  border: 1px solid var(--plight1);
+  color: var(--plight1);
+}
+  

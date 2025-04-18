@@ -1,17 +1,16 @@
 import React, { useState } from "react";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { auth, db } from "./firebase";
+import "./ImageUploadButton.css";
 
 const ImageUploadButton = () => {
     const [imageFile, setImageFile] = useState(null);
     const [uploading, setUploading] = useState(false);
-    const [imageUrl, setImageUrl] = useState("");
+    const [isOpen, setIsOpen] = useState(false);
     const [tagsString, setTagsString] = useState("");
 
     const handleFileChange = (e) => {
-        if (e.target.files && e.target.files[0]) {
-            setImageFile(e.target.files[0]);
-        }
+        setImageFile(e.target.files?.[0] || null);
     };
 
     const handleUpload = async () => {
@@ -31,15 +30,18 @@ const ImageUploadButton = () => {
             const json = await res.json();
 
             if (json.secure_url) {
-                setImageUrl(json.secure_url);
+                // add image link and tags to db
                 const tags = tagsString.split(",").map((t) => t.trim()).filter((t) => t.length > 0);
-
                 await addDoc(collection(db, "Images"), {
                     imageUrl: json.secure_url,
                     createdAt: serverTimestamp(),
                     uploadedBy: auth.currentUser.uid,
                     tags: tags,
                 });
+                // close modal & reset
+                setIsOpen(false);
+                setImageFile(null);
+                setTagsString("");
             }
         } catch (err) {
             console.error("Upload failed:", err);
@@ -49,25 +51,24 @@ const ImageUploadButton = () => {
     };
 
     return (
-        <div>
-            <input type="file" accept="image/*" onChange={handleFileChange}/>
-            <input type="text" placeholder="Add tags, comma separated" value={tagsString} 
-                onChange={(e) => setTagsString(e.target.value)} style={{ marginTop: 8, width: "100%" }} />
-            <button onClick={handleUpload} disabled={!imageFile || uploading} >
-                {uploading ? "Uploading…" : "Upload Image"}
-            </button>
-
-            {/* TESTING PREVIEW */}
-            {/* {imageUrl && (
-                <div style={{ marginTop: 16 }}>
-                    <p>Uploaded successfully!</p>
-                    <img src={imageUrl} alt="Preview" style={{ maxWidth: "100%", height: "auto" }} />
-                    {tagsString && (
-                        <p> Tags:{" "} {tagsString.split(",").map((t) => t.trim()).filter(Boolean).join(", ")} </p>
-                    )}
+    <div>
+        <button className="open-modal-btn" onClick={() => setIsOpen(true)}>Upload Image</button>
+        {isOpen && (
+            <div className="modal-overlay" onClick={() => setIsOpen(false)}>
+                <div className="modal-content" onClick={(e) => e.stopPropagation()} >
+                    <h3>Upload an Image</h3>
+                    <input type="file" accept="image/*" onChange={handleFileChange} />
+                    <input type="text" placeholder="Add tags, comma separated" value={tagsString} onChange={(e) => setTagsString(e.target.value)} />
+                    <div className="modal-actions">
+                        <button id="modal-upload" onClick={handleUpload} disabled={!imageFile || uploading} >
+                            {uploading ? "Uploading…" : "Submit"}
+                        </button>
+                        <button id="modal-cancel" onClick={() => setIsOpen(false)}>Cancel</button>
+                    </div>
                 </div>
-            )} */}
-        </div>
+            </div>
+        )}
+    </div>
     );
 };
 
