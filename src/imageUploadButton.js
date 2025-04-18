@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {collection, addDoc, serverTimestamp, doc,updateDoc, arrayUnion } from "firebase/firestore";
+import {collection, addDoc, serverTimestamp, doc,updateDoc, setDoc, arrayUnion } from "firebase/firestore";
 import { auth, db } from "./firebase";
 import "./ImageUploadButton.css";
 
@@ -41,9 +41,15 @@ const ImageUploadButton = () => {
 
                 // add image to userImages field
                 const userRef = doc(db, "Users", auth.currentUser.uid);
-                await updateDoc(userRef, {
-                    userImages: arrayUnion(json.secure_url)
-                });
+                await setDoc( userRef,
+                    { userImages: arrayUnion(json.secure_url) }, { merge: true }
+                );
+
+                // update Search_Tags for each tag
+                for (const tag of tags) {
+                    const tagRef = doc(db, "Search_Tags", tag);
+                    await setDoc(tagRef, { images: arrayUnion(json.secure_url) }, { merge: true } );
+                }
 
                 // close modal & reset
                 setIsOpen(false);
