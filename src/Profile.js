@@ -3,6 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 import { doc, getDoc } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 import { db } from "./firebase";
 import "./Profile.css";
 
@@ -10,6 +11,7 @@ const Profile = () => {
     const { userId } = useParams();
     const [user, setUser] = useState(null);
     const [error, setError] = useState(null);
+    const auth = getAuth();
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -51,7 +53,11 @@ const Profile = () => {
                                         <p> <b>{user.name || user.displayName}</b>{" "} @{user.username || userId} </p>
                                         <p>4.3 ★ (1129)</p>
                                     </div>
-                                    <Link to={`/messages`}> <button className="message-button">Message</button> </Link>
+
+                                    {(auth.currentUser?.uid == userId) ? (
+                                        <button className="message-button"> Edit Profile </button> ) : (
+                                        <Link to="/messages"> <button className="message-button"> Message </button> </Link>
+                                    )}
                                 </div>
 
                                 {/* Tabs */}
