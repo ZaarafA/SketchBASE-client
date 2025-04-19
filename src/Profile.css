@@ -84,6 +84,11 @@ body {
     border-bottom: 2px solid var(--plight1);
 }
 
+.section-title{
+    display: flex;
+    justify-content: space-between;
+}
+
 /* Cards */
 .cards-container {
     display: grid;

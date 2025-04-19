@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import ImageUploadButton from "./imageUploadButton";
-import ServiceButton from "./ServicesButton";
+// import ImageUploadButton from "./imageUploadButton";
+// import ServiceButton from "./ServicesButton";
 import "./App.css";
 
 const Header = () => {
@@ -20,7 +20,7 @@ const Header = () => {
             <h1 className="title">SketchBASE</h1>
             <div className="header-buttons">
                 <p className="notifications">🔔</p>
-                {user && <div><ServiceButton/> <ImageUploadButton /></div> }
+                {/* {user && <div><ServiceButton/> <ImageUploadButton /></div> } */}
             </div>
         </div>
     )

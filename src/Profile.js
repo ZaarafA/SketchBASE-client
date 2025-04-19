@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import Header from "./Header";
 import EditProfileButton from "./EditProfileButton";
+import ImageUploadButton from "./imageUploadButton";
 import Sidebar from "./Sidebar";
 import { doc, getDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { db } from "./firebase";
 import "./Profile.css";
+import ServiceButton from "./ServicesButton";
 
 const Profile = () => {
     const { userId } = useParams();
@@ -71,7 +73,7 @@ const Profile = () => {
 
                                 {/* Services */}
                                 <div className="services-section">
-                                    Services:
+                                    <div class="section-title"> Services: <ServiceButton/></div>
                                     <div className="cards-container">
                                         {Array.isArray(user.userServices) && user.userServices.length > 0 ? (
                                             // create cards either for existing services or for placeholders
@@ -93,7 +95,7 @@ const Profile = () => {
 
                                 {/* Portfolio */}
                                 <div className="portfolio-section">
-                                    Portfolio:
+                                    <div class="section-title"> Portfolio: <ImageUploadButton/></div>
                                     <div className="cards-container">
                                         {Array.isArray(user.userImages) && user.userImages.length > 0 ? (
                                             user.userImages.slice(-5).map((url, idx) => (
