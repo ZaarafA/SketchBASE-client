@@ -137,6 +137,9 @@ body {
 .card:hover img {
     object-fit: contain;
 }
+.card.placeholder{
+    transform: scale(1);
+}
 
 /* SERVICE CARD STYLING */
 .card-overlay {
