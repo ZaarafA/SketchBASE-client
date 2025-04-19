@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { getAuth } from "firebase/auth";
-import { doc, addDoc, setDoc,collection, arrayUnion, serverTimestamp } from "firebase/firestore";
+import { doc, addDoc, updateDoc, setDoc,collection, arrayUnion, serverTimestamp } from "firebase/firestore";
 import { db } from "./firebase";
 import "./ImageUploadButton.css";
 
@@ -20,7 +20,7 @@ const ServiceButton = () => {
         if (!currentUser) return;
         setSaving(true);
 
-        // upload image to cloudinary, store in firebase
+        // upload image to cloudinary
         let imageLink = "";
         if (imageFile) {
             const form = new FormData();
@@ -37,20 +37,21 @@ const ServiceButton = () => {
 
         const tags = tagsString.split(",").map(t => t.trim()).filter(t => t);
         const service = {
-            title, price, description, tags, imageLink, createdAt: serverTimestamp()
+            title, price, description, tags, imageLink
         };
 
-        // add to userServices array
-        const serviceRef = await addDoc(
-            collection(db, "Users", currentUser.uid, "userServices"), service
-        );
+        // push service object into the userServices array field
+        const userRef = doc(db, "Users", currentUser.uid);
+        await updateDoc(userRef, {
+            userServices: arrayUnion(service)
+        });
 
         // for each tag: store a reference to this service
         for (const tag of tags) {
             const tagRef = doc(db, "Service_Tags", tag);
             await setDoc(
                 tagRef,
-                { services: arrayUnion(serviceRef) },
+                { services: arrayUnion(service) },
                 { merge: true }
             );
         }
@@ -64,6 +65,7 @@ const ServiceButton = () => {
         setSaving(false);
         setIsOpen(false);
     };
+    
 
     return (
         <>
