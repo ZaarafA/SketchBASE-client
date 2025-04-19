@@ -90,6 +90,7 @@ body {
     grid-template-columns: repeat(5, 1fr);
     gap: 8px;
     margin: 12px 0;
+    overflow: visible;
 }
 
 .card {
@@ -99,6 +100,14 @@ body {
     overflow: hidden;
     background: var(--pdark2);
     border-radius: 4px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition:
+        background-size 0.3s ease,
+        transform 0.3s ease,
+        z-index 0.3s ease;
+    will-change: transform, background-size;
 }
 .card.placeholder {
     background: grey;
@@ -112,13 +121,19 @@ body {
     object-fit: cover;
     object-position: center;
     display: block;
+    transition: object-fit 0.3s ease;
 }
+/* hover: uncrop and enlarge card */
+.card:hover {
+    background-size: contain;
+    transform: scale(3);
+    z-index: 10;
+}
+.card:hover img {
+    object-fit: contain;
+}
+
 /* SERVICE CARD STYLING */
-.service-card {
-    background-size: cover;
-    background-position: center;
-    position: relative;
-}
 .card-overlay {
     position: absolute;
     bottom: 0;
