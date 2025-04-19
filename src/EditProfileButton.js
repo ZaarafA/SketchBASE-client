@@ -60,6 +60,8 @@ const EditProfileButton = () => {
         setUserData(prev => ({ ...prev, name: displayName, photoURL }));
         setSaving(false);
         setIsOpen(false);
+
+        window.location.reload();
     };
 
     return (
