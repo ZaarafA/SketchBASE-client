@@ -33,8 +33,8 @@ const Sidebar = () => {
                 <Link to="/messages">Messages</Link>
                 <Link to="/search">Search</Link>
                 <Link to={user ? `/profile/${user.uid}` : "/login"}>Profile</Link>
+                {!user && (<Link to="/login">Login / Signup</Link>)}
                 {/* TEMP LINKS: FOR TESTING ONLY */}
-                <Link to="/login">Login / Signup</Link>
                 {/* <Link to="/signup">*Sign Up</Link> */}
                 {/* <Link to="/test">*Faraaz Testing</Link> */}
                 </div>
