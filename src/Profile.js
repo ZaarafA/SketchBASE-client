@@ -53,7 +53,7 @@ const Profile = () => {
                                         {user.photoURL ? <img src={user.photoURL} alt="Profile"/> : null}
                                     </div>
                                     <div className="info">
-                                        <p> <b>{user.name || user.displayName}</b>{" "} @{user.username || userId} </p>
+                                        <p> <b>{user.name || user.displayName}</b> </p>
                                         <p>4.3 ★ (1129)</p>
                                     </div>
 
