@@ -20,9 +20,24 @@ const ServiceButton = () => {
         if (!currentUser) return;
         setSaving(true);
 
+        // upload image to cloudinary, store in firebase
+        let imageLink = "";
+        if (imageFile) {
+            const form = new FormData();
+            form.append("file", imageFile);
+            form.append("upload_preset", "unsigned_preset");
+            form.append("cloud_name", "dt1uihx5y");
+            const res = await fetch(
+                "https://api.cloudinary.com/v1_1/dt1uihx5y/image/upload",
+                { method: "POST", body: form }
+            );
+            const json = await res.json();
+            imageLink = json.secure_url;
+        }
+
         const tags = tagsString.split(",").map(t => t.trim()).filter(t => t);
         const service = {
-            title, price, description, tags, imageLink: "", createdAt: serverTimestamp()
+            title, price, description, tags, imageLink, createdAt: serverTimestamp()
         };
 
         // add to userServices array
