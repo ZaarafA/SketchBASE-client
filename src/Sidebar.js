@@ -34,9 +34,9 @@ const Sidebar = () => {
                 <Link to="/search">Search</Link>
                 <Link to={user ? `/profile/${user.uid}` : "/login"}>Profile</Link>
                 {/* TEMP LINKS: FOR TESTING ONLY */}
-                <Link to="/login">*Login</Link>
-                <Link to="/signup">*Sign Up</Link>
-                <Link to="/test">*Faraaz Testing</Link>
+                <Link to="/login">Login / Signup</Link>
+                {/* <Link to="/signup">*Sign Up</Link> */}
+                {/* <Link to="/test">*Faraaz Testing</Link> */}
                 </div>
             <div className="sidebar-section sidebar-middle">
                 <h3>Ongoing Orders</h3>
@@ -46,7 +46,7 @@ const Sidebar = () => {
                 <img alt="Profile" src={(user && user.photoURL) ? user.photoURL : "https://picsum.photos/300/300"} />
                 </div>
                 <p>{user ? user.displayName : "Guest User"}</p>
-                {user && (<button onClick={handleSignOut}>Sign Out</button>)}
+                {user && (<button className="back-button" onClick={handleSignOut}>Sign Out</button>)}
             </div>
         </div>
     );

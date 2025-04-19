@@ -58,6 +58,7 @@ body {
   justify-content: space-between;
   padding: 20px;
   color: white;
+  font: .95em sans-serif;
 }
 .sidebar-section {
   display: flex;
@@ -172,6 +173,14 @@ body {
   font-size: 1rem;
   cursor: pointer;
   transition: 0.3s ease;
+  margin-left: 10px;
+}
+.back-button .button-link{
+  text-decoration: none;
+  color: white;
+}
+.button-redirect{
+  background-color: var(--pdark2);
 }
 
 .back-button:hover {

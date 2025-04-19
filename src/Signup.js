@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 import { auth, db } from "./firebase";
@@ -46,9 +46,10 @@ const Signup = () => {
                                 <input type="password" placeholder="Create a password" value={password} onChange={(e) => setPassword(e.target.value)} required />
                                 <button type="submit" className="signup-button">Sign Up</button>
                             </form>
-                            <button className="back-button" onClick={() => navigate("/")}>
-                                Back to Home
+                            <button className="back-button button-redirect">
+                                <Link className="button-link" to="/signup">TO LOG IN</Link>
                             </button>
+                            <button className="back-button" onClick={() => navigate("/")}>Back to Home</button>
                         </div>
                 </div>
             </div>
