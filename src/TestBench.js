@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 import EditProfileButton from "./EditProfileButton";
+import ServiceButton from "./ServicesButton";
 
 const TestBench = () => {
 
@@ -12,7 +13,7 @@ const TestBench = () => {
           <div className="main">
             <Sidebar />
             <div className="content">
-                <EditProfileButton></EditProfileButton>
+                <ServiceButton></ServiceButton>
             </div>
           </div>
         </div>
