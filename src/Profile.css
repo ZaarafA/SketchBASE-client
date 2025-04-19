@@ -33,6 +33,12 @@ body {
 .profile-right {
     flex: 1;
 }
+.services-section {
+    padding: 0px 16px;
+}
+.portfolio-section {
+    padding: 0px 16px;
+}
 
 /* Profile Header */
 .profile-header {
@@ -107,13 +113,36 @@ body {
     object-position: center;
     display: block;
 }
+/* SERVICE CARD STYLING */
+.service-card {
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+.card-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 8px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, 
+        rgba(0, 0, 0, 0) 100%);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    color: white;
+}
+.service-title {
+    margin: 0;
+    font-weight: bold;
+    font-size: 1rem;
+}
+.service-price {
+    margin: 0;
+    font-size: 0.9rem;
+}
 
-.services-section {
-    padding: 0px 16px;
-}
-.portfolio-section {
-    padding: 0px 16px;
-}
+
 .show-more {
     background: none;
     border: 1px solid var(--plight1);

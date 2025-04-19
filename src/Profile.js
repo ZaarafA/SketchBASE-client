@@ -73,12 +73,21 @@ const Profile = () => {
                                 <div className="services-section">
                                     Services:
                                     <div className="cards-container">
-                                        <div className="card placeholder"></div>
-                                        <div className="card placeholder"></div>
-                                        <div className="card placeholder"></div>
-                                        <div className="card placeholder"></div>
-                                        <div className="card placeholder"></div>
-                                        </div>
+                                        {Array.isArray(user.userServices) && user.userServices.length > 0 ? (
+                                            // create cards either for existing services or for placeholders
+                                            user.userServices.map((service, idx) => (
+                                                <div key={idx} className="card service-card" style={{backgroundImage: `url(${service.imageLink})`}} >
+                                                    <div className="card-overlay">
+                                                        <p className="service-title">{service.title}</p>
+                                                        <p className="service-price">${service.price}</p>
+                                                    </div>
+                                                </div>
+                                            ))) : (
+                                            Array.from({ length: 5 }).map((_, i) => (
+                                                <div key={i} className="card placeholder" />
+                                            ))
+                                        )}
+                                    </div>
                                     <button className="show-more">Show more</button>
                                 </div>
 
