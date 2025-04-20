@@ -10,11 +10,8 @@ A consolidated art marketplace platform
 Made Using: React, Firebase, PostgreSQL, Bootstrap
 
 Major TODOs:
-- Profile Editing
-- User Search
-- Image Tag Searching
-- Services Section
-- Portfolio Page
+- Profile Subpages: Portfolio, Services
+- Service Ordering System
 
 Minor TODOs:
 - Signup Validation: Check that the password fits some length/character requirement, the email isn't already in use. Show error messages to user if password is too short.
@@ -27,8 +24,7 @@ Minor TODOs:
 - Cloudinary Optimization: f_auto
 
 Syling Needed:
+- Replace the bell emoji in the header with a pop-up notification modal
 - Signout button
-- Move Login/Signup links to sidebar's bottom section when not logged in
-- Replace the bell emoji in the header with a pop-up notification area
 - Message Page
 - Search Page
