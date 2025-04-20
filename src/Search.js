@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
-import { searchServicesByTags } from "./searchService.js";
+import { searchServicesByTags, searchServicesByAllTags } from "./searchService.js";
 import "./Search.css";
 
 const Search = () => {
@@ -16,7 +16,7 @@ const Search = () => {
         setLoading(true);
         setError(null);
         try {
-            const services = await searchServicesByTags(query);
+            const services = await searchServicesByAllTags(query);
             setResults(services);
         } catch (err) {
             console.error("Search failed:", err);
