@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 import { searchServicesByTags, searchServicesByAllTags } from "./searchService.js";
+import { searchArtByTags } from "./searchArt.js";
 import "./Search.css";
 
 const Search = () => {
@@ -10,6 +11,7 @@ const Search = () => {
     const [results, setResults] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+    const [artResults, setArtResults] = useState([]);
 
     const handleSearch = async e => {
         e.preventDefault();
@@ -18,6 +20,9 @@ const Search = () => {
         try {
             const services = await searchServicesByAllTags(query);
             setResults(services);
+
+            const artLinks = await searchArtByTags(query);
+            setArtResults(artLinks);
         } catch (err) {
             console.error("Search failed:", err);
             setError("Failed to fetch services.");
@@ -41,7 +46,9 @@ const Search = () => {
                 </form>
 
                 {error && <p className="search-error">{error}</p>}
-
+                
+                {/* Services Section */}
+                <p>Services</p>
                 <div className="cards-container">
                     {results.length > 0 ? (
                         results.map(service => (
@@ -55,6 +62,17 @@ const Search = () => {
                             </Link>
                         ))) : (
                         !loading && (<p className="no-results">No services found.</p>)
+                    )}
+                </div>
+
+                {/* Art Section */}
+                <p>Artwork</p>
+                <div className="cards-container">
+                    {artResults.length > 0 ? (
+                        artResults.map((url, idx) => (
+                            <div key={idx} className="card" style={{backgroundImage: `url(${url})`}}/>
+                        ))) : (
+                        !loading && (<p className="no-results">No artwork found.</p>)
                     )}
                 </div>
             </div>
