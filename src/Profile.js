@@ -73,7 +73,7 @@ const Profile = () => {
 
                                 {/* Services */}
                                 <div className="services-section">
-                                    <div className="section-title"> Services: <ServiceButton/></div>
+                                    <div className="section-title"> Services: {auth.currentUser?.uid === userId && <ServiceButton/>}</div>
                                     <div className="cards-container">
                                         {Array.isArray(user.userServices) && user.userServices.length > 0 ? (
                                             // create cards either for existing services or for placeholders
@@ -95,7 +95,7 @@ const Profile = () => {
 
                                 {/* Portfolio */}
                                 <div className="portfolio-section">
-                                    <div className="section-title"> Portfolio: <ImageUploadButton/></div>
+                                    <div className="section-title"> Portfolio: {auth.currentUser?.uid === userId && <ImageUploadButton />}</div>
                                     <div className="cards-container">
                                         {Array.isArray(user.userImages) && user.userImages.length > 0 ? (
                                             user.userImages.slice(-5).map((url, idx) => (
