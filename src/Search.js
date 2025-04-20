@@ -70,7 +70,7 @@ const Search = () => {
                 <div className="cards-container">
                     {artResults.length > 0 ? (
                         artResults.map((url, idx) => (
-                            <div key={idx} className="card" style={{backgroundImage: `url(${url})`}}/>
+                            <div key={idx} className="search-card" style={{backgroundImage: `url(${url})`}}/>
                         ))) : (
                         !loading && (<p className="no-results">No artwork found.</p>)
                     )}
