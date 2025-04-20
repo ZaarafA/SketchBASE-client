@@ -36,17 +36,23 @@
     display: block;
     transition: object-fit 0.3s ease;
 }
-/* hover: uncrop and enlarge card */
-.card:hover {
-    background-size: contain;
-    transform: scale(3);
-    z-index: 10;
-}
-.card:hover img {
-    object-fit: contain;
-}
 .card.placeholder{
     transform: scale(1);
+}
+.card-link {
+    display: inline-block;
+}
+/* On hover: enlarge in center of screen */
+.card-link:hover .card {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    height: 70vh;
+    width: auto;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    background-size: contain;
+    background-position: center;
 }
 
 /* SERVICE CARD STYLING */
