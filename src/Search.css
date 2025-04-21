@@ -1,31 +1,36 @@
-/* Cards; from profile page */
+/* Cards: From Profile Page */
 .cards-container {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    gap: 8px;
-    margin: 12px 0;
+    gap: 12px;
+    margin: 20px 0;
     overflow: visible;
-}
-.search-card {
+  }
+  
+  /* Search Card (Artwork) */
+  .search-card {
     position: relative;
     width: 100%;
     aspect-ratio: 1.1 / 1;
     overflow: hidden;
     background: var(--pdark2);
-    border-radius: 4px;
+    border-radius: 8px;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     transition:
-        background-size 0.3s ease,
-        transform 0.3s ease,
-        z-index 0.3s ease;
+      background-size 0.3s ease,
+      transform 0.3s ease,
+      z-index 0.3s ease;
     will-change: transform, background-size;
-}
-.search-card.placeholder {
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  }
+  
+  .search-card.placeholder {
     background: grey;
-}
-.search-card img {
+  }
+  
+  .search-card img {
     position: absolute;
     top: 0;
     left: 0;
@@ -35,73 +40,121 @@
     object-position: center;
     display: block;
     transition: object-fit 0.3s ease;
-}
-.search-card.placeholder{
+  }
+  
+  .search-card.placeholder {
     transform: scale(1);
-}
-.card-link {
-    display: inline-block;
-}
-.search-card {
+  }
+  
+  .search-card {
     transform-origin: center center;
-}
-/* On hover: enlarge in the center of the screen */
-.card-link:hover .service-card {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    height: 70vh;
-    width: auto;
-    transform: translate(-50%, -50%) scale(1);
-    z-index: 10;
-    background-size: contain;
+  }
+  
+  /* Service Card */
+  .card-link {
+    display: inline-block;
+  }
+  
+  .card-link:hover .service-card {
+    transform: scale(1.08);
+    z-index: 1;
+    background-size: cover;
+      
+  }
+  
+  /* Service Card Styling */
+  .service-card {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1.1 / 1;
+    border-radius: 8px;
+    background-size: cover;
     background-position: center;
-    pointer-events: none;
-}
-
-/* SERVICE CARD STYLING */
-.card-overlay {
+    background-repeat: no-repeat;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+  }
+  
+  .card-overlay {
     position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
-    padding: 8px;
+    padding: 10px;
     background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, 
-        rgba(0, 0, 0, 0) 100%);
+      rgba(0, 0, 0, 0) 100%);
     display: flex;
     flex-direction: column;
     gap: 4px;
     color: white;
-}
-.service-title {
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+  }
+  
+  .service-title {
     margin: 0;
     font-weight: bold;
     font-size: 1rem;
-}
-.service-price {
+  }
+  
+  .service-price {
     margin: 0;
     font-size: 0.9rem;
-}
-
-/* SEARCH SPECIFIC */
-.search-form {
-    margin-bottom: 20px;
-}
-.search-input {
+  }
+  
+  /* Search Bar */
+  .search-form {
+    margin-bottom: 24px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  
+  .search-input {
     width: 70%;
-    padding: 8px;
+    padding: 10px 14px;
     font-size: 1rem;
-}
-.search-button {
-    padding: 8px 16px;
-    margin-left: 8px;
-}
-.search-error {
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    transition: border-color 0.2s ease;
+  }
+  
+  .search-input:focus {
+    border-color: #888;
+    outline: none;
+  }
+  
+  .search-button {
+    padding: 10px 18px;
+    background-color: var(--pdark1);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .search-button:hover {
+    background-color: var(--plight1);
+    color: #000;
+  }
+  
+  /* Error */
+  .search-error {
     color: salmon;
     margin-top: 8px;
-}
-.no-results {
+    font-weight: 500;
+  }
+  
+  /* No Results Text */
+  .no-results {
     grid-column: 1 / -1;
     text-align: center;
     margin-top: 16px;
-}
+    font-style: italic;
+    color: #666;
+    font-size: 0.95rem;
+  }
+  
