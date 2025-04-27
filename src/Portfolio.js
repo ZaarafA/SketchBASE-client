@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 import { doc, getDoc } from "firebase/firestore";
@@ -21,7 +21,7 @@ const Portfolio = () => {
                     setError("User not found");
                 } else {
                     const data = snap.data();
-                    const urls = Array.isArray(data.userImages) ? data.userImages : []; 
+                    const urls = Array.isArray(data.userImages) ? data.userImages.slice().reverse() : [];
                     setArtworks(urls.map((url, idx) => ({ id: idx, imageUrl: url })));
                 }
             } catch (err) {
@@ -47,12 +47,11 @@ const Portfolio = () => {
 
                 {!loading && !error && (
                     <div className="image-cards">
-                        {artworks.length > 0 ? (
-                            artworks.map(art => (
+                        {artworks.length > 0 ? artworks.map(art => (
                                 <div key={art.id} className="image-card">
                                     <img src={art.imageUrl} alt={`Artwork ${art.id + 1}`} />
                                 </div>
-                            ))) : (<p className="no-results">No artwork found.</p>)}
+                        )) : <p className="no-results">No artwork found.</p>}
                     </div>
                 )}
             </div>
