@@ -57,7 +57,7 @@ const Profile = () => {
                                         <p>4.3 ★ (1129)</p>
                                     </div>
 
-                                    {(auth.currentUser?.uid == userId) ? (
+                                    {(auth.currentUser?.uid === userId) ? (
                                         <EditProfileButton></EditProfileButton> ) : (
                                         <Link to="/messages"> <button className="message-button"> Message </button> </Link>
                                     )}
@@ -65,10 +65,10 @@ const Profile = () => {
 
                                 {/* Tabs */}
                                 <div className="tabs">
-                                    <button className="active">Profile</button>
+                                    <Link className="active" to={`/profile/${userId}`}><button>Profile</button></Link>
                                     <button>Services</button>
                                     <button>Reviews</button>
-                                    <button>Portfolio</button>
+                                    <Link to={`/profile/${userId}/portfolio`}><button>Portfolio</button></Link>
                                 </div>
 
                                 {/* Services */}
