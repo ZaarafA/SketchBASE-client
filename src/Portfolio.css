@@ -1,0 +1,39 @@
+/* Layout */
+.portfolio-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+.portfolio-main {
+    display: flex;
+    flex-grow: 1;
+}
+.portfolio-content {
+    flex-grow: 1;
+    padding: 20px;
+}
+
+/* Title & messages */
+.portfolio-title {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+.loading, .error, .no-results {
+    margin: 1rem 0;
+    color: salmon;
+}
+
+/* Artwork grid */
+.image-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-top: 1rem;
+}
+.image-card img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 4px;
+    object-fit: cover;
+}

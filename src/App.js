@@ -21,7 +21,7 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/messages" element={<Messages />} />
         <Route path="/test" element={<TestBench />} />
-        <Route path="/portfolio/:artistName" element={<Portfolio />} />
+        <Route path="/profile/:userId/portfolio" element={<Portfolio />} />
         </Routes>
     </Router>
   );

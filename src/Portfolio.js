@@ -1,70 +1,63 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import Header from './Header';
-import Sidebar from './Sidebar';
+import React, { useEffect, useState } from "react";
+import { useParams, Link } from "react-router-dom";
+import Header from "./Header";
+import Sidebar from "./Sidebar";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "./firebase";
+import "./Portfolio.css";
 
 const Portfolio = () => {
+    const { userId } = useParams();
     const [artworks, setArtworks] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        // Simulate fetching data from a server
         const fetchArtworks = async () => {
             try {
-                setTimeout(() => {
-                    setArtworks([
-                        { id: '1', title: 'Artwork 1', imageUrl: 'https://placehold.co/400x300/EEE/31343C'},
-                        { id: '2', title: 'Artwork 2', imageUrl: 'https://placehold.co/400x300/EEE/31343C'},
-                        { id: '3', title: 'Artwork 3', imageUrl: 'https://placehold.co/400x300/EEE/31343C'},
-                        { id: '4', title: 'Artwork 4', imageUrl: 'https://placehold.co/400x300/EEE/31343C'},
-                        { id: '5', title: 'Artwork 5', imageUrl: 'https://placehold.co/400x300/EEE/31343C'},
-                        { id: '6', title: 'Artwork 6', imageUrl: 'https://placehold.co/400x300/EEE/31343C'},
-                        { id: '7', title: 'Artwork 7', imageUrl: 'https://placehold.co/400x300/EEE/31343C'},
-                        { id: '8', title: 'Artwork 8', imageUrl: 'https://placehold.co/400x300/EEE/31343C'},
-                    ]);
-                    setLoading(false);
-                }, 1000);
-            } catch (error) {
-                if (error instanceof Error) {
-                    setError(error.message);
+                const userRef = doc(db, "Users", userId);
+                const snap = await getDoc(userRef);
+                if (!snap.exists()) {
+                    setError("User not found");
                 } else {
-                    setError("An unknown error occurred");
+                    const data = snap.data();
+                    const urls = Array.isArray(data.userImages) ? data.userImages : []; 
+                    setArtworks(urls.map((url, idx) => ({ id: idx, imageUrl: url })));
                 }
+            } catch (err) {
+                console.error("Error fetching artworks:", err);
+                setError(err.message);
+            } finally {
                 setLoading(false);
             }
         };
-
         fetchArtworks();
-    }, []);
+    }, [userId]);
 
     return (
-        <div className="home-container" style={{ position: 'relative' }}>
-            <Header />
-            <div className="home-main" style={{ display: 'flex' }}>
-                <Sidebar />
-                <div className="home-content" style={{ flexGrow: 1 }}>
-                    <h1 className="text-3xl font-bold text-gray-800 mb-6">Artist Portfolio</h1>
-                    <div className="image-cards" style={{gridTemplateColumns: 'repeat(4, 1fr)'}}>
-                        {artworks.map((artwork) => (
-                            <div key={artwork.id} className="image-card">
-                                <img
-                                    src={artwork.imageUrl}
-                                    alt={artwork.title}
+    <div className="portfolio-container">
+        <Header />
+        <div className="portfolio-main">
+            <Sidebar />
+            <div className="portfolio-content">
+                <h1 className="portfolio-title">Artist Portfolio</h1>
 
-                                />
-                                <p>{artwork.title}</p>
-                            </div>
-                        ))}
+                {loading && <p className="loading">Loading…</p>}
+                {error   && <p className="error">{error}</p>}
+
+                {!loading && !error && (
+                    <div className="image-cards">
+                        {artworks.length > 0 ? (
+                            artworks.map(art => (
+                                <div key={art.id} className="image-card">
+                                    <img src={art.imageUrl} alt={`Artwork ${art.id + 1}`} />
+                                </div>
+                            ))) : (<p className="no-results">No artwork found.</p>)}
                     </div>
-                    <div className="fixed bottom-0 right-0 m-4 text-center">
-                        <Link to="/" className="back-button button-redirect ">
-                            Back to Home
-                        </Link>
-                    </div>
-                </div>
+                )}
             </div>
         </div>
+    </div>
     );
 };
 
