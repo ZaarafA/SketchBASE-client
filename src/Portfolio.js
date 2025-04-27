@@ -1,19 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "./firebase";
 import "./Portfolio.css";
+import EditProfileButton from "./EditProfileButton";
+import { getAuth } from "firebase/auth";
 
 const Portfolio = () => {
     const { userId } = useParams();
-    const [artworks, setArtworks] = useState([]);
+    const auth = getAuth();
+    const [user, setUser] = useState(null);
+    const [artworks,setArtworks] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        const fetchArtworks = async () => {
+        const fetchUser = async () => {
             try {
                 const userRef = doc(db, "Users", userId);
                 const snap = await getDoc(userRef);
@@ -21,17 +25,18 @@ const Portfolio = () => {
                     setError("User not found");
                 } else {
                     const data = snap.data();
+                    setUser(data);
                     const urls = Array.isArray(data.userImages) ? data.userImages.slice().reverse() : [];
                     setArtworks(urls.map((url, idx) => ({ id: idx, imageUrl: url })));
                 }
             } catch (err) {
-                console.error("Error fetching artworks:", err);
+                console.error("Error fetching user:", err);
                 setError(err.message);
             } finally {
                 setLoading(false);
             }
         };
-        fetchArtworks();
+        fetchUser();
     }, [userId]);
 
     return (
@@ -40,10 +45,32 @@ const Portfolio = () => {
         <div className="portfolio-main">
             <Sidebar />
             <div className="portfolio-content">
-                <h1 className="portfolio-title">Artist Portfolio</h1>
-
+                {error && <p className="error">{error}</p>}
                 {loading && <p className="loading">Loading…</p>}
-                {error   && <p className="error">{error}</p>}
+
+                {user && (
+                    <div className="profile-header">
+                        <div className="avatar">
+                            {user.photoURL && <img src={user.photoURL} alt="Profile" />}
+                        </div>
+                        <div className="info">
+                            <p><b>{user.name || user.displayName}</b></p> <p>4.3 ★ (1129)</p>
+                        </div>
+                        {(auth.currentUser?.uid === userId) ? <EditProfileButton /> : 
+                            <Link to="/messages">
+                                <button className="message-button">Message</button>
+                            </Link>
+                        }
+                    </div>
+                )}
+                {user && (
+                    <div className="tabs">
+                        <Link to={`/profile/${userId}`}><button>Profile</button></Link>
+                        <button>Services</button>
+                        <button>Reviews</button>
+                        <Link className="active" to={`/profile/${userId}/portfolio`}><button>Portfolio</button></Link>
+                    </div>
+                )}
 
                 {!loading && !error && (
                     <div className="image-cards">
