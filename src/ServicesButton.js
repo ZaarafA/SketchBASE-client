@@ -35,15 +35,20 @@ const ServiceButton = () => {
             imageLink = json.secure_url;
         }
 
-        const tags = tagsString.split(",").map(t => t.trim()).filter(t => t);
+        const tags = tagsString.split(",").map(t => t.trim()).filter(Boolean);
         const service = {
             title, price, description, tags, imageLink
         };
 
-        // push service object into the userServices array field
+        // add to subcollection
+        const serviceRef = await addDoc(
+            collection(db, "Users", currentUser.uid, "userServices"), service
+        );
+        // add service to user and get reference to its location in firestore
+        const userRecord = { ...service, id: serviceRef.id };
         const userRef = doc(db, "Users", currentUser.uid);
         await updateDoc(userRef, {
-            userServices: arrayUnion(service)
+            userServices: arrayUnion(userRecord)
         });
 
         // for each tag: store a reference to this service
@@ -51,7 +56,7 @@ const ServiceButton = () => {
             const tagRef = doc(db, "Service_Tags", tag);
             await setDoc(
                 tagRef,
-                { services: arrayUnion(service) },
+                { services: arrayUnion(serviceRef) },
                 { merge: true }
             );
         }
