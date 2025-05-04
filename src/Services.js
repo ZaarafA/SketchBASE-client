@@ -64,6 +64,24 @@ const Services = () => {
                     </div>
                 )}
 
+                {error && <p className="error">{error}</p>}
+                {loading && <p className="loading">Loading…</p>}
+
+                {!loading && !error && (
+                    <div className="cards-container">
+                        {services.length > 0 ? (
+                            services.map(svc => (
+                                <div key={svc.id} className="card service-card" style={{ backgroundImage: `url(${svc.imageLink})` }} >
+                                    <div className="card-overlay">
+                                        <p className="service-title">{svc.title}</p>
+                                        <p className="service-price">${svc.price}</p>
+                                        <p className="service-desc">{svc.description}</p>
+                                    </div>
+                                </div>
+                            ))
+                        ) : (<p className="no-results">No services found.</p>)}
+                    </div>
+                )}
             </div>
         </div>
     </div>
