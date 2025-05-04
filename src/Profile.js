@@ -4,7 +4,7 @@ import Header from "./Header";
 import EditProfileButton from "./EditProfileButton";
 import ImageUploadButton from "./imageUploadButton";
 import Sidebar from "./Sidebar";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc, arrayUnion } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { db } from "./firebase";
 import "./Profile.css";
@@ -15,6 +15,7 @@ const Profile = () => {
     const [user, setUser] = useState(null);
     const [error, setError] = useState(null);
     const auth = getAuth();
+    const [newReview, setNewReview] = useState("");
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -32,6 +33,31 @@ const Profile = () => {
         };
         fetchUser();
     }, [userId]);
+
+    // add review to Users.{User}.Reviews
+    const handleReviewSubmit = async () => {
+        if (!newReview.trim() || auth.currentUser?.uid === userId) return;
+        const reviewObj = {
+            reviewer: auth.currentUser.uid,
+            reviewer_name: auth.currentUser.displayName,
+            review: newReview.trim(),
+            date: new Date(),
+        };
+        try {
+            const userRef = doc(db, "Users", userId);
+            await updateDoc(userRef, {
+                Reviews: arrayUnion(reviewObj)
+            });
+            // update local state
+            setUser(prev => ({
+                ...prev,
+                Reviews: prev.Reviews ? [...prev.Reviews, reviewObj] : [reviewObj]
+            }));
+            setNewReview("");
+        } catch (err) {
+            console.error("Error adding review:", err);
+        }
+    };
 
     return (
         <div className="container">
@@ -116,7 +142,14 @@ const Profile = () => {
                                         <div className="review placeholder">Review 2</div>
                                         <div className="review placeholder">Review 3</div>
                                     </div>
-                                    <button className="show-more">Show more</button>
+                                    {auth.currentUser?.uid !== userId && (
+                                        <div className="add-review">
+                                            <textarea value={newReview}
+                                                onChange={e => setNewReview(e.target.value)}
+                                                placeholder="Write your review..."/>
+                                            <button onClick={handleReviewSubmit}>Submit</button>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         </div>
