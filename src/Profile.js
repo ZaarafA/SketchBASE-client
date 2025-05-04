@@ -138,9 +138,13 @@ const Profile = () => {
                                 <div className="reviews-section">
                                     Reviews
                                     <div className="reviews-list">
-                                        <div className="review placeholder">Review 1</div>
-                                        <div className="review placeholder">Review 2</div>
-                                        <div className="review placeholder">Review 3</div>
+                                        {Array.isArray(user.Reviews) && user.Reviews.length > 0 ? user.Reviews.map((r, i) => (
+                                            <div key={i} className="review">
+                                                <p>{r.review}</p>
+                                                <p className="reviewer_name">by {r.reviewer_name}</p>
+                                            </div>
+                                        )) : <p>No reviews yet.</p>
+                                        }
                                     </div>
                                     {auth.currentUser?.uid !== userId && (
                                         <div className="add-review">
