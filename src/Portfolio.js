@@ -66,8 +66,7 @@ const Portfolio = () => {
                 {user && (
                     <div className="tabs">
                         <Link to={`/profile/${userId}`}><button>Profile</button></Link>
-                        <button>Services</button>
-                        <button>Reviews</button>
+                        <Link to={`/profile/${userId}/services`}><button>Services</button></Link>
                         <Link className="active" to={`/profile/${userId}/portfolio`}><button>Portfolio</button></Link>
                     </div>
                 )}

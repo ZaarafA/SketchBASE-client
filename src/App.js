@@ -9,6 +9,7 @@ import Signup from './Signup';
 import Messages from './Messages';
 import TestBench from './TestBench';
 import Portfolio from './Portfolio';
+import Services from './Services';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/messages" element={<Messages />} />
         <Route path="/test" element={<TestBench />} />
         <Route path="/profile/:userId/portfolio" element={<Portfolio />} />
+        <Route path="/profile/:userId/services" element={<Services />} />
         </Routes>
     </Router>
   );
