@@ -39,11 +39,13 @@ const Sidebar = () => {
                 <h3></h3>
             </div>
             <div className="sidebar-section sidebar-bottom">
-                <div className="pfp-div">
-                <img alt="Profile" src={(user && user.photoURL) ? user.photoURL : "https://picsum.photos/300/300"} />
+                <div className="profile-info">
+                    <div className="pfp-div">
+                        <img alt="Profile" src={user && user.photoURL ? user.photoURL : "https://picsum.photos/300/300"}/>
+                    </div>
+                    <p>{user ? user.displayName : "Guest User"}</p>
                 </div>
-                <p>{user ? user.displayName : "Guest User"}</p>
-                {user && (<button className="back-button" onClick={handleSignOut}>Sign Out</button>)}
+                {user && (<button className="signout-button" onClick={handleSignOut}>Sign Out</button>)}
             </div>
         </div>
     );
