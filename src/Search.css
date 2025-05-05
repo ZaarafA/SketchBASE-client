@@ -82,10 +82,18 @@
 .card-link {
   display: inline-block;
 }
+/* Revert hover effect */
 .card-link:hover .service-card {
-  transform: scale(1.08);
-  z-index: 1;
-  background-size: cover;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  height: 70vh;
+  width: auto;
+  transform: translate(-50%, -50%) scale(1);
+  z-index: 10;
+  background-size: contain;
+  background-position: center;
+  pointer-events: none;
 }
 .service-card {
   position: relative;
@@ -99,6 +107,7 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s ease;
 }
+
 /* Service Card Overlay */
 .card-overlay {
   position: absolute;
@@ -140,4 +149,3 @@
   color: #666;
   font-size: 0.95rem;
 }
-  
