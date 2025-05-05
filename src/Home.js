@@ -20,25 +20,25 @@ const Home = () => {
           </div>
           <div className="explore">
             <p>Explore:</p>
-            <div className="image-cards">
+            <div className="home-image-cards">
               {/* image data and links */}
-              <div className="image-card">
+              <div className="home-image-card">
                 <img src="/gd.png" />
                 <p>Graphic Design</p>
               </div>
-              <div className="image-card">
+              <div className="home-image-card">
                 <img src="/portrait.png"/>
                 <p>Portraits</p>
               </div>
-              <div className="image-card">
+              <div className="home-image-card">
                 <img src="/ld.png"/>
                 <p>Logo Design</p>
               </div>
-              <div className="image-card">
+              <div className="home-image-card">
                 <img src="/ca.png" />
                 <p>Comic Art</p>
               </div>
-              <div className="image-card">
+              <div className="home-image-card">
                 <img src="/pixel.png" />
                 <p>Pixel Art</p>
               </div>

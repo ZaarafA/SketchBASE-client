@@ -73,20 +73,20 @@ body {
   margin-left: 10px;
 }
 
-.image-cards {
+.home-image-cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 10px;
 }
 
-.image-card {
+.home-image-card {
   overflow: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.image-card img {
+.home-image-card img {
   width: 80%;
   height: 250px;
   object-fit: cover;
@@ -95,7 +95,7 @@ body {
   z-index: 10;
 }
 
-.image-card p {
+.home-image-card p {
   text-align: center;
   margin: 0px 0px;
 }
