@@ -2,6 +2,7 @@
 // import { Link } from "react-router-dom";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
+import { Link } from "react-router-dom";
 import "./Home.css";
 
 const Home = () => {
@@ -14,10 +15,10 @@ const Home = () => {
           <div className="banner">
             <img src="/Group23.png" alt="SketchBase Banner" />
           </div>
-          <div className="search-bar">
-            <input type="text" placeholder="SEARCH" />
-            <button></button>
-          </div>
+          <Link to="/search" className="search-bar">
+              <input type="text" placeholder="SEARCH" readOnly />
+              <button />
+          </Link>
           <div className="explore">
             <p>Explore:</p>
             <div className="home-image-cards">

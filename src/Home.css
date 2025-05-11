@@ -55,22 +55,29 @@ body {
 .search-bar {
   display: flex;
   margin: 20px 20px;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
 }
 
 .search-bar input {
   flex: 1;
   padding: 10px;
-  border-radius: 5px;
+  border-radius: 5px 0 0 5px;
   border: 1px solid #ccc;
+  cursor: pointer;
+  background: white;
+  color: black;
 }
 
 .search-bar button {
-  padding: 10px 40px;
+  width: 40px;
   background-color: var(--purpmain);
   color: white;
   border: none;
-  border-radius: 5px;
-  margin-left: 10px;
+  border-radius: 0 5px 5px 0;
+  margin: 0;
+  cursor: pointer;
 }
 
 .home-image-cards {
