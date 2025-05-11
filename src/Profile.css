@@ -44,8 +44,6 @@ body {
 .profile-header {
     display: flex;
     align-items: center;
-    gap: 16px;
-    padding: 16px;
 }
 .avatar {
     width: 100px;
@@ -70,14 +68,12 @@ body {
 
 /* Tabs */
 .tabs {
-    display: flex;
-    gap: 8px;
+    display: flex; 
 }
 .tabs button {
     background: none;
     border: none;
     color: white;
-    padding: 8px 12px;
     cursor: pointer;
 }
 .tabs .active {
@@ -165,6 +161,11 @@ body {
     font-size: 0.9rem;
 }
 
+
+.pf-btn-group{
+    display: flex;
+    gap: 20px;
+}
 
 .show-more {
     background: none;

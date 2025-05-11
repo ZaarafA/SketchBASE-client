@@ -98,7 +98,13 @@ const Profile = () => {
 
                                 {/* Services */}
                                 <div className="services-section">
-                                    <div className="section-title"> Services: {auth.currentUser?.uid === userId && <ServiceButton/>}</div>
+                                    <div className="section-title">
+                                        Services:
+                                        <div className="pf-btn-group">
+                                            {auth.currentUser?.uid === userId && <ServiceButton/>}
+                                            <Link to={`/profile/${userId}/services`}><button className="show-more">Show more</button></Link>
+                                        </div>
+                                        </div>
                                     <div className="cards-container">
                                         {Array.isArray(user.userServices) && user.userServices.length > 0 ? (
                                             // create cards either for existing services or for placeholders
@@ -115,12 +121,17 @@ const Profile = () => {
                                             ))
                                         )}
                                     </div>
-                                    <button className="show-more">Show more</button>
                                 </div>
 
                                 {/* Portfolio */}
                                 <div className="portfolio-section">
-                                    <div className="section-title"> Portfolio: {auth.currentUser?.uid === userId && <ImageUploadButton />}</div>
+                                    <div className="section-title"> 
+                                        Portfolio:
+                                        <div className="pf-btn-group">
+                                            {auth.currentUser?.uid === userId && <ImageUploadButton />}
+                                            <Link to={`/profile/${userId}/portfolio`}><button className="show-more">Show more</button></Link>
+                                        </div>
+                                    </div>
                                     <div className="cards-container">
                                         {Array.isArray(user.userImages) && user.userImages.length > 0 ? (
                                             user.userImages.slice(-5).map((url, idx) => (
@@ -129,7 +140,6 @@ const Profile = () => {
                                             Array.from({ length: 5 }).map( (_, i) => ( <div key={i} className="card placeholder" />))
                                         )}
                                     </div>
-                                    <button className="show-more">Show more</button>
                                 </div>
                             </div>
 

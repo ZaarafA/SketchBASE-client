@@ -17,7 +17,6 @@ const Header = () => {
         <div className="header">
             <h1 className="title">SketchBASE</h1>
             <div className="header-buttons">
-                <p className="notifications">🔔</p>
             </div>
         </div>
     )
