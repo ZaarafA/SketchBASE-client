@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 import { Link } from "react-router-dom";
-import { collection, getDocs, addDoc, serverTimestamp, query, orderBy, onSnapshot } from "firebase/firestore";
+import { collection, getDocs, addDoc, doc, serverTimestamp, query, 
+    orderBy, onSnapshot, updateDoc, arrayUnion  } from "firebase/firestore";
 import { db, auth } from "./firebase";
 import PlaceOrderButton from "./PlaceOrderButton";
 import OrderMessage from "./OrderMessage";
@@ -70,30 +71,41 @@ const Messages = () => {
 
     // If User Accepts Order, add to firestore, send confirmation message
     const handleAccept = async msg => {
-      try {
-        await addDoc(
-          collection(db, "Orders"),
-          {
-            from: msg.from,
-            to: msg.to,
-            serviceType: msg.order.serviceType,
-            description: msg.order.description,
-            createdAt: serverTimestamp()
-          }
-        );
-        console.log("Order created for", msg.order.serviceType);
-
-        await addDoc( collection(db, "Messages"),
-            {
-                text: `${auth.currentUser.displayName} ACCEPTED the request`,
+        try {
+            // Create order in Orders, grab ref
+            const orderRef = await addDoc(collection(db, "Orders"),
+                {
+                    from: msg.from,
+                    to: msg.to,
+                    serviceType: msg.order.serviceType,
+                    description: msg.order.description,
+                    createdAt: serverTimestamp()
+                }
+            );
+            console.log("Order created for", msg.order.serviceType);
+            // send accept message
+            await addDoc(collection(db, "Messages"), {
+                text:      `${auth.currentUser.displayName} ACCEPTED the request`,
                 createdAt: serverTimestamp(),
-                from: auth.currentUser.uid,
-                to: msg.from
-            }
-        );
-      } catch (err) {
-        console.error("Error creating order:", err);
-      }
+                from:      auth.currentUser.uid,
+                to:        msg.from
+            });
+
+            // Sender -- OrdersOut
+            const senderRef = doc(db, "Users", msg.from);
+            await updateDoc(senderRef, {
+                OrdersOut: arrayUnion(orderRef)
+            });
+            // Receiver -- OrdersIn
+            const receiverRef = doc(db, "Users", msg.to);
+            await updateDoc(receiverRef, {
+                OrdersIn: arrayUnion(orderRef)
+            });
+
+            console.log("OrdersIn/OrdersOut updated");
+        } catch (err) {
+            console.error("Error handling accept:", err);
+        }
     };
     const handleDeny = async msg => {
         console.log("denied", msg.id);
