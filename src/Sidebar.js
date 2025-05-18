@@ -66,7 +66,7 @@ const Sidebar = () => {
                 <h3>Incoming Orders</h3>
                 {incomingOrders.length > 0 ? (
                     incomingOrders.map(o => (
-                        <p key={o.id}> {o.toDisplay} — {o.serviceType} </p>
+                        <p key={o.id}>{o.fromDisplay} — {o.serviceType}</p>
                     ))
                 ) : (<p className="no-orders">No incoming orders</p>)}
 
