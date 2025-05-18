@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/SketchBASE-client/static/css/main.0d2f915e.css",
-    "main.js": "/SketchBASE-client/static/js/main.aced2f19.js",
+    "main.js": "/SketchBASE-client/static/js/main.7b17d90b.js",
     "static/js/453.6bbd1a19.chunk.js": "/SketchBASE-client/static/js/453.6bbd1a19.chunk.js",
     "index.html": "/SketchBASE-client/index.html",
     "main.0d2f915e.css.map": "/SketchBASE-client/static/css/main.0d2f915e.css.map",
-    "main.aced2f19.js.map": "/SketchBASE-client/static/js/main.aced2f19.js.map",
+    "main.7b17d90b.js.map": "/SketchBASE-client/static/js/main.7b17d90b.js.map",
     "453.6bbd1a19.chunk.js.map": "/SketchBASE-client/static/js/453.6bbd1a19.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.0d2f915e.css",
-    "static/js/main.aced2f19.js"
+    "static/js/main.7b17d90b.js"
   ]
 }
