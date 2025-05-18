@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { collection, getDocs, addDoc, serverTimestamp, query, orderBy, onSnapshot } from "firebase/firestore";
 import { db, auth } from "./firebase";
 import PlaceOrderButton from "./PlaceOrderButton";
+import OrderMessage from "./OrderMessage";
 
 const Messages = () => {
     const [users, setUsers] = useState([]);
@@ -67,6 +68,45 @@ const Messages = () => {
         }
     };
 
+    // If User Accepts Order, add to firestore, send confirmation message
+    const handleAccept = async msg => {
+      try {
+        await addDoc(
+          collection(db, "Orders"),
+          {
+            from: msg.from,
+            to: msg.to,
+            serviceType: msg.order.serviceType,
+            description: msg.order.description,
+            createdAt: serverTimestamp()
+          }
+        );
+        console.log("Order created for", msg.order.serviceType);
+
+        await addDoc( collection(db, "Messages"),
+            {
+                text: `${auth.currentUser.displayName} ACCEPTED the request`,
+                createdAt: serverTimestamp(),
+                from: auth.currentUser.uid,
+                to: msg.from
+            }
+        );
+      } catch (err) {
+        console.error("Error creating order:", err);
+      }
+    };
+    const handleDeny = async msg => {
+        console.log("denied", msg.id);
+        await addDoc( collection(db, "Messages"),
+            {
+                text: `${auth.currentUser.displayName} DENIED the ${msg.order.serviceType} request`,
+                createdAt: serverTimestamp(),
+                from: auth.currentUser.uid,
+                to: msg.from
+            }
+        )
+    };
+
     return (
         <div className="container">
             <Header />
@@ -81,7 +121,8 @@ const Messages = () => {
                                 className={`user-box ${activeUser && activeUser.id === user.id ? 'active' : ''}`}
                                 onClick={() => {if(auth.currentUser){setActiveUser(user)}}}
                             >
-                                {user.photoURL ? <img src={user.photoURL} alt="User Profile" className="user-image"/> : <img src="https://picsum.photos/200" alt="User Profile" className="user-image" />}
+                                {user.photoURL ? <img src={user.photoURL} alt="User Profile" className="user-image"/> 
+                                    : <img src="https://picsum.photos/200" alt="User Profile" className="user-image" />}
                                 <p>{user.name}</p>
                             </div>
                         ))}
@@ -92,18 +133,25 @@ const Messages = () => {
                             <>
                                 <div className="chat-header">
                                     <Link to={`/profile/${activeUser.id}`} className="chat-header-link" >
-                                    {activeUser.photoURL ? <img src={activeUser.photoURL} alt="User Profile" className="user-image"/> : <img src="https://picsum.photos/200" alt="User Profile" className="user-image" />}
+                                    {activeUser.photoURL ? <img src={activeUser.photoURL} alt="User Profile" className="user-image"/> 
+                                        : <img src="https://picsum.photos/200" alt="User Profile" className="user-image" />}
                                         {activeUser.name}
                                     </Link>
                                 </div>
                                 <div className="chat-messages">
-                                    {messages.length > 0 ? (
-                                        messages.map(msg => (
-                                            <div key={msg.id} className={`message ${msg.from === auth.currentUser.uid ? 'sent' : 'received'}`}>
-                                                <p>{msg.text}</p>
-                                            </div>
-                                        ))
-                                    ) : (<p>No messages yet.</p>)}
+                                    {messages.length > 0 ? messages.map(msg => {
+                                        if (msg.type === 'order') {
+                                            return (
+                                                    <OrderMessage key={msg.id} msg={msg} currentUserId={auth.currentUser.uid} onAccept={handleAccept} onDeny={handleDeny}/>
+                                                );
+                                        } else {
+                                            return (
+                                                <div key={msg.id} className={`message ${msg.from === auth.currentUser.uid ? 'sent' : 'received'}`}>
+                                                    <p>{msg.text}</p>
+                                                </div>
+                                            );
+                                        }
+                                    }) : (<p>No messages yet.</p>)}
                                 </div>
                                 <div className="chat-typebar">
                                     <input type="text" placeholder="Type your message..." value={messageText}
