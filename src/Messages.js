@@ -4,6 +4,7 @@ import Sidebar from "./Sidebar";
 import { Link } from "react-router-dom";
 import { collection, getDocs, addDoc, serverTimestamp, query, orderBy, onSnapshot } from "firebase/firestore";
 import { db, auth } from "./firebase";
+import PlaceOrderButton from "./PlaceOrderButton";
 
 const Messages = () => {
     const [users, setUsers] = useState([]);
@@ -108,6 +109,7 @@ const Messages = () => {
                                     <input type="text" placeholder="Type your message..." value={messageText}
                                         onChange={(e) => setMessageText(e.target.value)}/>
                                     <button onClick={sendMessage}>Send</button>
+                                    <PlaceOrderButton toUserId={activeUser.id}></PlaceOrderButton>
                                 </div>
                             </>
                         ) : (<div className="no-active-user">
