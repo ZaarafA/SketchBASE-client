@@ -72,6 +72,8 @@ const Messages = () => {
     // If User Accepts Order, add to firestore, send confirmation message
     const handleAccept = async msg => {
         try {
+            const fromUserSnap = await getDoc(doc(db, "Users", msg.from));
+            const fromDisplay = fromUserSnap.exists() ? (fromUserSnap.data().name || fromUserSnap.data().displayName) : "";
             const toUserSnap = await getDoc(doc(db, "Users", msg.to));
             const toDisplay = toUserSnap.exists() ? (toUserSnap.data().name || toUserSnap.data().displayName) : "";
 
@@ -81,7 +83,7 @@ const Messages = () => {
                 messageId: msg.id,
                 from: msg.from,
                 to: msg.to,
-                fromDisplay: auth.currentUser.displayName,
+                fromDisplay,
                 toDisplay,
                 serviceType: msg.order.serviceType,
                 description: msg.order.description,
