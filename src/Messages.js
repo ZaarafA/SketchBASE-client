@@ -108,8 +108,8 @@ const Messages = () => {
                                 <div className="chat-typebar">
                                     <input type="text" placeholder="Type your message..." value={messageText}
                                         onChange={(e) => setMessageText(e.target.value)}/>
-                                    <button onClick={sendMessage}>Send</button>
                                     <PlaceOrderButton toUserId={activeUser.id}></PlaceOrderButton>
+                                    <button onClick={sendMessage}>Send</button>
                                 </div>
                             </>
                         ) : (<div className="no-active-user">

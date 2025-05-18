@@ -1,8 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "./firebase";
 import "./PlaceOrderButton.css";
 
-const PlaceOrderButton = ({ toUserId, serviceTypes = [] }) => {
+const PlaceOrderButton = ({ toUserId }) => {
     const [isOpen, setIsOpen] = useState(false);
+    const [toUserName, setToUserName] = useState("");
+    const [serviceTypes, setServiceTypes] = useState([]);
+
+    useEffect(() => {
+        if (!isOpen || !toUserId) return;
+        const fetchUserData = async () => {
+            try {
+                const userRef = doc(db, "Users", toUserId);
+                const snap = await getDoc(userRef);
+                if (snap.exists()) {
+                    const data = snap.data();
+                    setToUserName(data.name || data.displayName || "");
+                    const services = Array.isArray(data.userServices)
+                        ? data.userServices
+                        : [];
+                    setServiceTypes(services.map(svc => svc.title));
+                }
+            } catch (err) {
+                console.error("Error fetching user data:", err);
+            }
+        };
+        fetchUserData();
+    }, [isOpen, toUserId]);
 
     return (
     <>
@@ -11,7 +36,7 @@ const PlaceOrderButton = ({ toUserId, serviceTypes = [] }) => {
         {isOpen && (
             <div className="modal-overlay" onClick={() => setIsOpen(false)}>
                 <div className="modal-content" onClick={e => e.stopPropagation()}>
-                    <h3>New Order for </h3>
+                    <h3>New Order for {toUserName}</h3>
 
                     <label>Description:</label>
                     <textarea placeholder="Enter order description..." rows={4}></textarea>
@@ -19,8 +44,8 @@ const PlaceOrderButton = ({ toUserId, serviceTypes = [] }) => {
                     <label>Service Type:</label>
                     <select defaultValue="">
                         <option value="" disabled>Select a service</option>
-                        {serviceTypes.map((type, i) => (
-                            <option key={i} value={type}>{type}</option>
+                        {serviceTypes.map((type, idx) => (
+                            <option key={idx} value={type}>{type}</option>
                         ))}
                     </select>
 
