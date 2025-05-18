@@ -3,7 +3,7 @@ import Header from "./Header";
 import Sidebar from "./Sidebar";
 import { Link } from "react-router-dom";
 import { collection, getDocs, addDoc, doc, serverTimestamp, query, 
-    orderBy, onSnapshot, updateDoc, arrayUnion, setDoc  } from "firebase/firestore";
+    orderBy, onSnapshot, updateDoc, arrayUnion, setDoc, getDoc } from "firebase/firestore";
 import { db, auth } from "./firebase";
 import PlaceOrderButton from "./PlaceOrderButton";
 import OrderMessage from "./OrderMessage";
@@ -72,12 +72,17 @@ const Messages = () => {
     // If User Accepts Order, add to firestore, send confirmation message
     const handleAccept = async msg => {
         try {
+            const toUserSnap = await getDoc(doc(db, "Users", msg.to));
+            const toDisplay = toUserSnap.exists() ? (toUserSnap.data().name || toUserSnap.data().displayName) : "";
+
             // Create order in Orders, grab ref
             const orderRef = doc(db, "Orders", msg.id);
             await setDoc(orderRef, {
                 messageId: msg.id,
                 from: msg.from,
                 to: msg.to,
+                fromDisplay: auth.currentUser.displayName,
+                toDisplay,
                 serviceType: msg.order.serviceType,
                 description: msg.order.description,
                 createdAt: serverTimestamp()
