@@ -3,7 +3,7 @@ import Header from "./Header";
 import Sidebar from "./Sidebar";
 import { Link } from "react-router-dom";
 import { collection, getDocs, addDoc, doc, serverTimestamp, query, 
-    orderBy, onSnapshot, updateDoc, arrayUnion  } from "firebase/firestore";
+    orderBy, onSnapshot, updateDoc, arrayUnion, setDoc  } from "firebase/firestore";
 import { db, auth } from "./firebase";
 import PlaceOrderButton from "./PlaceOrderButton";
 import OrderMessage from "./OrderMessage";
@@ -73,16 +73,17 @@ const Messages = () => {
     const handleAccept = async msg => {
         try {
             // Create order in Orders, grab ref
-            const orderRef = await addDoc(collection(db, "Orders"),
-                {
-                    from: msg.from,
-                    to: msg.to,
-                    serviceType: msg.order.serviceType,
-                    description: msg.order.description,
-                    createdAt: serverTimestamp()
-                }
-            );
+            const orderRef = doc(db, "Orders", msg.id);
+            await setDoc(orderRef, {
+                messageId: msg.id,
+                from: msg.from,
+                to: msg.to,
+                serviceType: msg.order.serviceType,
+                description: msg.order.description,
+                createdAt: serverTimestamp()
+            }, { merge: true });
             console.log("Order created for", msg.order.serviceType);
+            
             // send accept message
             await addDoc(collection(db, "Messages"), {
                 text:      `${auth.currentUser.displayName} ACCEPTED the request`,
@@ -109,15 +110,13 @@ const Messages = () => {
     };
     const handleDeny = async msg => {
         console.log("denied", msg.id);
-        await addDoc( collection(db, "Messages"),
-            {
-                text: `${auth.currentUser.displayName} DENIED the ${msg.order.serviceType} request`,
-                createdAt: serverTimestamp(),
-                from: auth.currentUser.uid,
-                to: msg.from
-            }
-        )
-    };
+        await addDoc( collection(db, "Messages"),{
+            text: `${auth.currentUser.displayName} DENIED the ${msg.order.serviceType} request`,
+            createdAt: serverTimestamp(),
+            from: auth.currentUser.uid,
+            to: msg.from
+        }
+    )};
 
     return (
         <div className="container">
