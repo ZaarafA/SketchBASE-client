@@ -1,4 +1,4 @@
-import { doc, getDoc } from "firebase/firestore";
+import { collection, getDocs, doc, getDoc } from "firebase/firestore";
 import { db } from "./firebase";
 
 export async function searchServicesByTags(tagsString) {
@@ -40,25 +40,28 @@ export async function searchServicesByTags(tagsString) {
 
 export async function searchServicesByAllTags(tagsString) {
     try {
-        const tags = tagsString.split(",").map(t => t.trim()).filter(Boolean);
+        const tags = tagsString.split(",").map(t => t.trim().toLowerCase()).filter(Boolean);
         if (tags.length === 0) return [];
 
         // fetch each tag doc
-        const tagSnaps = await Promise.all(
-            tags.map(tag => getDoc(doc(db, "Service_Tags", tag)))
+        const allTagDocs = await getDocs(collection(db, "Service_Tags"));
+        const tagMap = new Map(
+            allTagDocs.docs.map(snap => [snap.id.toLowerCase(), snap])
         );
-        // build array of service-ref lists
-        const lists = tagSnaps.map(snap =>
-            snap.exists() ? snap.data().services || [] : []
-        );
+
+        // filters snaps by input tag matching
+        const tagSnaps = tags.map(tag => tagMap.get(tag)).filter(snap => snap && snap.exists());
+        if (tagSnaps.length !== tags.length) return [];
+
+        // extract each tag's list of service refs
+        const lists = tagSnaps.map(snap => snap.data().services || []);
         if (lists.some(list => list.length === 0)) {
             return [];
         }
         // intersect all lists by path
         let intersection = lists[0];
         for (let i = 1; i < lists.length; i++) {
-            const current = lists[i];
-            const currentPaths = new Set(current.map(r => r.path));
+            const currentPaths = new Set(lists[i].map(r => r.path));
             intersection = intersection.filter(r => currentPaths.has(r.path));
         }
         // remove duplicates
